@@ -1,2 +1,2 @@
 # my_first_repository
-记录学习
+用来记录学习
