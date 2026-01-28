@@ -153,5 +153,155 @@ def kuohao4():
                 return
     if huan==[]:
         print('true')
+def lianbiao5():
+    '''
+    将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的
+
+    示例 1：
+    输入：l1 = [1,2,4]; l2 = [1,3,4]
+    输出：[1,1,2,3,4,4]
+
+    示例 2：
+    输入：l1 = []; l2 = []
+    输出：[]
+
+    示例 3：
+    输入：l1 = []; l2 = [0]
+    输出：[0]
+
+    链表？？？列表？？？
+    '''
+    exec(input("格式：l1 = 第一个列表 ; l2 = 第二个列表 ："),globals())
+    l3=l1+l2
+    l3.sort()
+    print(f'{l3}')
+def quchong6():
+    """
+    给你一个 非严格递增排列 的数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。
+    元素的 相对顺序 应该保持 一致 。然后返回 nums 中唯一元素的个数。
+    考虑 nums 的唯一元素的数量为 k。去重后，返回唯一元素的数量 k。
+
+    示例 1：
+    输入：nums = [1,1,2]
+    输出：2, nums = [1,2,_]
+    解释：函数应该返回新的长度 2 ，并且原数组 nums 的前两个元素被修改为 1, 2 。不需要考虑数组中超出新长度后面的元素。
+
+    示例 2：
+    输入：nums = [0,0,1,1,1,2,2,3,3,4]
+    输出：5, nums = [0,1,2,3,4,_,_,_,_,_]
+    解释：函数应该返回新的长度 5 ， 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4 。不需要考虑数组中超出新长度后面的元素。
+    """
+    exec(input("格式：nums = 原列表 ："),globals())
+    cha=[]
+    shan=[]
+    for i in range(len(nums)):
+        if nums[i] not in cha:
+            cha.append(nums[i])
+        else:
+            shan.append(i)
+    for i in sorted(shan,reverse=True):
+        nums.pop(i)
+    print(nums)
+    print(f'{len(nums)}')
+def yichu7():
+    """
+    给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素。
+    元素的顺序可能发生改变。然后返回 nums 中与 val 不同的元素的数量。
+    假设 nums 中不等于 val 的元素数量为 k，要通过此题，您需要执行以下操作：
+    更改 nums 数组，使 nums 的前 k 个元素包含不等于 val 的元素。nums 的其余元素和 nums 的大小并不重要。
+    返回 k。
+
+    示例 1：
+    输入：nums = [3,2,2,3]; val = 3
+    输出：2, nums = [2,2,_,_]
+    解释：你的函数应该返回 k = 2, 并且 nums 中的前两个元素均为 2。
+    你在返回的 k 个元素之外留下了什么并不重要（因此它们并不计入评测）。
+
+    示例 2：
+    输入：nums = [0,1,2,2,3,0,4,2]; val = 2
+    输出：5, nums = [0,1,3,0,4,_,_,_]
+    解释：你的函数应该返回 k = 5，并且 nums 中的前五个元素为 0,0,1,3,4。
+    注意这五个元素可以任意顺序返回。
+    你在返回的 k 个元素之外留下了什么并不重要（因此它们并不计入评测）。
+    """
+    exec(input("格式：nums = 原列表; val = 需要删的元素 ："), globals())
+    shan=[]
+    for i in range(len(nums)):
+        if nums[i]==val:
+            shan.append(i)
+    for i in sorted(shan,reverse=True):
+        nums.pop(i)
+    print(f'{len(nums)},',end='')
+    print(f'nums = {nums}')
+def pipei8():
+    """
+    给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。
+    如果 needle 不是 haystack 的一部分，则返回  -1 。
+
+    示例 1：
+    输入：haystack = "sacdbutsad"; needle = "sad"
+    输出：7
+    解释："sad" 在下标 0 和 6 处匹配。
+    第一个匹配项的下标是 0 ，所以返回 0 。
+
+    示例 2：
+    输入：haystack = "leetcode"; needle = "leeto"
+    输出：-1
+    解释："leeto" 没有在 "leetcode" 中出现，所以返回 -1 。
+
+    呃，还是不直接find了，自己实现一下试试
+    """
+    exec(input("格式：haystack = \"被查找的字符串\"; needle = \"要查找的字符串\"："), globals())
+    a=0
+    b=-1
+    for i in range(len(haystack)):
+        if haystack[i]!=needle[0]:
+            continue
+        else:
+            a=0;b=i
+            for j in range(len(needle)):
+                if i + j >= len(haystack):
+                    break
+                if needle[j]==haystack[i+j]:
+                    a+=1
+                    continue
+                else:
+                    a=0
+                    b=-1
+                    break
+        if a==len(needle):
+            print(f'{b}')
+            return
+    print(f'{b}')
+def sousuo9():
+    """
+    给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+
+    示例 1:
+    输入: nums = [1,3,5,6]; target = 5
+    输出: 2
+
+    示例 2:
+    输入: nums = [1,3,5,6]; target = 2
+    输出: 1
+
+    示例 3:
+    输入: nums = [1,3,5,6]; target = 7
+    输出: 4
+    """
+    exec(input("格式：nums = 原列表 ; target = 目标数字 ："), globals())
+    a=-1
+    for i in range(len(nums)):
+        if nums[i]==target:
+            a=i
+            break
+    if a==-1:
+        nums.append(target)
+        nums.sort()
+        for i in range(len(nums)):
+            if nums[i] == target:
+                a = i
+                break
+    print(f'{a}')
 if __name__=='__main__':
-    kuohao4()
+    sousuo9()
