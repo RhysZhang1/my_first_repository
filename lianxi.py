@@ -1,5 +1,5 @@
 from string import digits
-
+import math
 
 def huiwen1():
     '''
@@ -477,5 +477,128 @@ def hebing15():
     nums1=nums1+nums2
     nums1.sort()
     print(nums1)
+def yanghui16():
+    """
+    给定一个非负整数 numRows，生成「杨辉三角」的前 numRows 行。
+    在「杨辉三角」中，每个数是它左上方和右上方的数的和。
+
+    示例 1:
+    输入: numRows = 5
+    输出: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+
+    示例 2:
+    输入: numRows = 1
+    输出: [[1]]
+    """
+    numRows=int(input())
+    san=[]
+    for i in range(numRows):
+        san.append([1 if j==0 or j==i else 0 for j in range(i+1)])
+    for i in range(2,numRows):
+        for j in range(1,i):
+            san[i][j]=san[i-1][j-1]+san[i-1][j]
+    print(san)
+    #换一种计算方式
+    san2=[]
+    for i in range(numRows):
+        san2.append([math.comb(i,j) for j in range(i+1)])
+    print(san2)
+def gupiao17():
+    """
+    给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。
+    你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。
+    设计一个算法来计算你所能获取的最大利润。\
+    返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。
+
+
+
+    示例 1：
+    输入：prices = [7,1,5,3,6,4]
+    输出：5
+    解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+         注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。
+
+    示例 2：
+    输入：prices = [7,6,4,3,1]
+    输出：0
+    解释：在这种情况下, 没有交易完成, 所以最大利润为 0。
+    """
+    prices=eval(input())
+    cha=0
+    for i in range(len(prices)):
+        for j in range(i+1,len(prices)):
+            # prices[i]=int(prices[i])
+            # prices[j]=int(prices[j])
+            if prices[j]-prices[i]>0 and prices[j]-prices[i]>cha:
+                cha=prices[j]-prices[i]
+    print(cha)
+def huiwen18():
+    """
+    如果在将所有大写字符转换为小写字符、并移除所有非字母数字字符之后，短语正着读和反着读都一样。则可以认为该短语是一个 回文串 。
+    字母和数字都属于字母数字字符。
+    给你一个字符串 s，如果它是 回文串 ，返回 true ；否则，返回 false 。
+
+    示例 1：
+    输入: s = "A man, a plan, a canal: Panama"
+    输出：true
+    解释："amanaplanacanalpanama" 是回文串。
+
+    示例 2：
+    输入：s = "race a car"
+    输出：false
+    解释："raceacar" 不是回文串。
+
+    示例 3：
+    输入：s = " "
+    输出：true
+    解释：在移除非字母数字字符之后，s 是一个空字符串 "" 。
+    由于空字符串正着反着读都一样，所以是回文串。
+    """
+    exec(input("格式：s = \"字符串\" :"), globals())
+    global s
+    s=s.lower()
+    s=list(s)
+    shan=[]
+    for i in range(len(s)):
+        if not ((s[i]>='0' and s[i]<='9') or (s[i]>='a' and s[i]<='z')):
+            shan.append(i)
+    shan.sort(reverse=True)
+    for i in shan:
+        s.pop(i)
+    s1=[]
+    for i in range (len(s)):
+        s1.append(s[-1-i])
+    if s==s1:
+        print('true')
+    else:
+        print('false')
+def yici19():
+    """
+    给你一个 非空 整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次
+    找出那个只出现了一次的元素。
+    你必须设计并实现线性时间复杂度的算法来解决此问题，且该算法只使用常量额外空间。
+
+    示例 1 ：
+    输入：nums = [2,2,1]
+    输出：1
+
+    示例 2 ：
+    输入：nums = [4,1,2,1,2]
+    输出：4
+
+    示例 3 ：
+    输入：nums = [1]
+    输出：1
+    """
+    exec(input("格式：nums = 列表 :"), globals())
+    fu=[]
+    for i in nums:
+        if i not in fu:
+            fu.append(i)
+            continue
+        if i in fu:
+            fu.remove(i)
+            continue
+    print(fu[0])
 if __name__=='__main__':
-    hebing15()
+    yici19()
