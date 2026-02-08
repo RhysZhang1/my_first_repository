@@ -768,5 +768,32 @@ def kuaile24():
     输入：n = 2
     输出：false
     """
+    a=int(input())
+    q=[];j=0;e=set()
+    def chu(a):     #可以这样： sum(int(d) ** 2 for d in str(a))
+        q[:]=[]
+        while True:
+            if a<10:
+                q.append(a)
+                break
+            else:
+                q.append(a%10)
+                a=a//10
+                continue
+    chu(a)
+    while j!=1:
+        if q[0]==1 and len(q)==1:
+            print('true')
+            return
+        else:
+            w=0
+            for i in range(len(q)):
+                w+=q[i]**2
+            if w in e:
+                j=1
+            else:
+                e.add(w)
+                chu(w)
+    print('false')
 if __name__=='__main__':
-    weiyi23()
+    kuaile24()
