@@ -795,5 +795,59 @@ def kuaile24():
                 e.add(w)
                 chu(w)
     print('false')
+def tonggou25():
+    """
+    给定两个字符串 s 和 t ，判断它们是否是同构的。
+    如果 s 中的字符可以按某种映射关系替换得到 t ，那么这两个字符串是同构的。
+    每个出现的字符都应当映射到另一个字符，同时不改变字符的顺序。
+    不同字符不能映射到同一个字符上，相同字符只能映射到同一个字符上，字符可以映射到自己本身。
+
+    示例 1：
+    输入：s = "egg";t = "add"
+    输出：true
+    解释：
+    字符串 s 和 t 可以通过以下方式变得相同：
+    将 'e' 映射为 'a'。
+    将 'g' 映射为 'd'。
+
+    示例 2：
+    输入：s = "f11"; t = "b23"
+    输出：false
+    解释：
+    字符串 s 和 t 无法变得相同，因为 '1' 需要同时映射到 '2' 和 '3'。
+
+    示例 3：
+    输入：s = "paper"; t = "title"
+    输出：true
+    """
+    exec(input("格式： s='字符串';t='字符串' :"), globals())
+    ying={}
+    if len(s)!=len(t):
+        print('false')
+    else:
+        s1=[i for i in s]
+        t1=[i for i in t]
+        x=0
+        for i in range(len(s)):
+            if s1[x] in ying.keys():
+                if t1[x] in ying.values():
+                    if (s1[x],t1[x]) in ying.items():
+                        ying[s1[x]]=t1[x]
+                        x+=1
+                        continue
+                    else:
+                        print('false')
+                        return
+                else:
+                    print('false')
+                    return
+            else:
+                if t1[x] in ying.values():
+                    print('false')
+                else:
+                    ying[s1[x]]=t1[x]
+                    x+=1
+                    continue
+        print('true')
 if __name__=='__main__':
-    kuaile24()
+    tonggou25()
