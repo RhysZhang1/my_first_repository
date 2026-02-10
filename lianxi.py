@@ -849,5 +849,43 @@ def tonggou25():
                     x+=1
                     continue
         print('true')
+def cuntong26():
+    """
+    给你一个整数数组 nums 和一个整数 k ，
+    判断数组中是否存在两个 不同的索引 i 和 j ，
+    满足 nums[i] == nums[j] 且 abs(i - j) <= k 。
+    如果存在，返回 true ；否则，返回 false 。
+
+    示例 1：
+    输入：nums = [1,2,3,1]; k = 3
+    输出：true
+
+    示例 2：
+    输入：nums = [1,0,1,1]; k = 1
+    输出：true
+
+    示例 3：
+    输入：nums = [1,2,3,1,2,3]; k = 2
+    输出：false
+    """
+    exec(input("格式： nums = 列表 ; k = 正整数 :"), globals())
+    b=[];
+    for i in range(len(nums)):
+        if nums[i] in nums[i+1:len(nums)]:
+            c=[]
+            c.append(i)
+            for j in range(len(nums[i+1:len(nums)])):
+                if nums[j+i+1]==nums[i]:
+                    c.append(j+i+1)
+                    break
+            b.append(c)
+    q=b[0][1]-b[0][0]
+    for i in range(len(b)):
+        if (b[i][1]-b[i][0])<q:
+            q=b[i][1]-b[i][0]
+    if b and q<=k:
+        print('true')
+    else:
+        print('false')
 if __name__=='__main__':
-    tonggou25()
+    cuntong26()
