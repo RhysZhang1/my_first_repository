@@ -1,7 +1,17 @@
 from string import digits
 import math
 import random
+import time
 
+def timer(func):
+    """计时装饰器"""
+    def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        result = func(*args, **kwargs)
+        end = time.perf_counter()
+        print(f"运行时间: {end - start:.4f} 秒")
+        return result
+    return wrapper
 def huiwen1():
     '''
     给你一个整数 x ，如果 x 是一个回文整数，返回 true ；否则，返回 false 。
@@ -944,5 +954,115 @@ def huizong27():
                 print(f'{nums[i]}","',end='')
                 d=0
     print('"]',end='')
+def mi28():
+    """
+    给你一个整数 n，请你判断该整数是否是 2 的幂次方。
+    如果是，返回 true ；否则，返回 false 。
+    如果存在一个整数 x 使得 n == 2x ，则认为 n 是 2 的幂次方。
+
+    示例 1：
+    输入：n = 1
+    输出：true
+    解释：2^0 = 1
+
+    示例 2：
+    输入：n = 16
+    输出：true
+    解释：2^4 = 16
+
+    示例 3：
+    输入：n = 3
+    输出：false
+    """
+    n=int(input())
+    for i in range(n):
+        if 1<<i == n:
+            print('true')
+            break
+        if 1<<i > n:
+            print('false')
+            break
+def yiwei29():
+    """
+    给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+    即字母相同，字母数量相同，仅字母位置不同
+
+    示例 1:
+    输入: s = "anagram"; t = "nagaram"
+    输出: true
+
+    示例 2:
+    输入: s = "rat"; t = "car"
+    输出: false
+    """
+    exec(input("格式： s = \"字符串\"; t = \"字符串\" : "), globals())
+    sf=[i for i in s]
+    tf=[i for i in t]
+    sf.sort()
+    tf.sort()
+    if sf==tf:
+        print('true')
+    else:
+        print('false')
+def weijia30():
+    """
+    给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。返回这个结果。
+
+    示例 1:
+    输入: num = 38
+    输出: 2
+    解释: 各位相加的过程为：
+    38 --> 3 + 8 --> 11
+    11 --> 1 + 1 --> 2
+    由于 2 是一位数，所以返回 2。
+
+    示例 2:
+    输入: num = 0
+    输出: 0
+    """
+    num=input()
+    while True:
+        if int(num)<10:
+            print(f'{num}')
+            break
+        else:
+            num=sum([int(i) for i in str(num)])
+def sushu31():
+    """
+    筛法求素数
+    """
+    n=int(input())
+    @timer
+    def main(n):
+        s=[2]+[i for i in range(3,n+1,2)]
+        for i in s[:]:
+            if i==2:
+                continue
+            for j in range(2,(n//i)+1):
+                if i*j in s:
+                    s.remove(i*j)
+        return s
+    s=main(n)
+    print(s)
+def sushu32():
+    """
+    筛法标记
+    """
+    n=int(input())
+    @timer
+    def main(n):
+        b=[True]*(n+1)
+        b[0]=b[1]=False
+        for i in range(2,int(n**0.5)+1):
+            if b[i]==True:
+                 for j in range(i*i,n+1,i):
+                     b[j]=False
+        s=[]
+        for i in range(len(b)):
+            if b[i]==True:
+                s.append(i)
+        return s
+    s=main(n)
+    print(s)
 if __name__=='__main__':
-    huizong27()
+    sushu32()
