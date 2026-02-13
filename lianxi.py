@@ -4,7 +4,6 @@ import random
 import time
 
 def timer(func):
-    """计时装饰器"""
     def wrapper(*args, **kwargs):
         start = time.perf_counter()
         result = func(*args, **kwargs)
@@ -1029,7 +1028,7 @@ def weijia30():
             num=sum([int(i) for i in str(num)])
 def sushu31():
     """
-    筛法求素数
+    筛法
     """
     n=int(input())
     @timer
@@ -1064,5 +1063,232 @@ def sushu32():
         return s
     s=main(n)
     print(s)
+def choushu33():
+    """
+    丑数 就是只包含质因数 2、3 和 5 的 正 整数。
+    给你一个整数 n ，请你判断 n 是否为 丑数 。
+    如果是，返回 true ；否则，返回 false 。
+    
+    示例 1：
+    输入：n = 6
+    输出：true
+    解释：6 = 2 × 3
+    
+    示例 2：
+    输入：n = 1
+    输出：true
+    解释：1 没有质因数。
+    
+    示例 3：
+    输入：n = 14
+    输出：false
+    解释：14 不是丑数，因为它包含了另外一个质因数 7 。
+    """
+    n=int(input())
+    def main(n):
+        if n<=0:
+            return False
+        if n==1:
+            return True
+        while True:
+            if n%2==0:
+                n=n/2
+                continue
+            elif n%3==0:
+                n=n/3
+                continue
+            elif n%5==0:
+                n=n/5
+                continue
+            elif n==1:
+                return True
+            else:
+                return False
+    if main(n):
+        print('true')
+    else:
+        print('false')
+def diushu34():
+    """
+    给定一个包含 [0, n] 中 n 个数的数组 nums ，
+    找出 [0, n] 这个范围内没有出现在数组中的那个数。
+
+    示例 1：
+    输入：nums = [3,0,1]
+    输出：2
+    解释：n = 3，因为有 3 个数字，所以所有的数字都在范围 [0,3] 内。
+    2 是丢失的数字，因为它没有出现在 nums 中。
+
+    示例 2：
+    输入：nums = [0,1]
+    输出：2
+    解释：n = 2，因为有 2 个数字，所以所有的数字都在范围 [0,2] 内。
+    2 是丢失的数字，因为它没有出现在 nums 中。
+
+    示例 3：
+    输入：nums = [9,6,4,2,3,5,7,0,1]
+    输出：8
+    解释：n = 9，因为有 9 个数字，所以所有的数字都在范围 [0,9] 内。
+    8 是丢失的数字，因为它没有出现在 nums 中。
+    """
+    n=eval(input('输入一个列表'))
+    @timer
+    def main(n):
+        n.sort()
+        m=[i for i in range(0,len(n)+1)]
+        for i in n:
+            if i in m:
+                m.remove(i)
+        return m[0]
+    print(f'{main(n)}')
+def liangjia35():
+    """
+    输入两个列表，分别存着两个数字的每个位上的数字（逆序）
+    将其相加再按同样格式输出
+
+    示例1：
+    输入：l1 = [2,4,3]; l2 = [5,6,4]
+    输出：[7,0,8]
+    解释：342 + 465 = 807.
+
+    示例 2：
+    输入：l1 = [0]; l2 = [0]
+    输出：[0]
+
+    示例 3：
+    输入：l1 = [9,9,9,9,9,9,9]; l2 = [9,9,9,9]
+    输出：[8,9,9,9,0,0,0,1]
+    9999999+9999=10009998
+    """
+    exec(input(),globals())
+    l1.reverse()
+    l2.reverse()
+    ll1=int(''.join(map(str,l1)))
+    ll2=int(''.join(map(str,l2)))
+    ll3=ll1+ll2
+    l3=[]
+    for i in str(ll3):
+        l3.append(int(i))
+    l3.reverse()
+    print(l3)
+def wuchong36():
+    """
+    给定一个字符串 s ，请你找出其中不含有重复字符的 最长 子串 的长度。
+
+    示例 1:
+    输入: s = "abcabcbb"
+    输出: 3
+    解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+    注意 "bca" 和 "cab" 也是正确答案。
+
+    示例 2:
+    输入: s = "bbbbb"
+    输出: 1
+    解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+
+    示例 3:
+    输入: s = "pwwkew"
+
+    输出: 3
+    解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+         请注意，你的答案必须是 子串 的长度，
+         "pwke" 是一个子序列，不是子串。
+    """
+    s=input()
+    def main(s):
+        c=[];b=1;z=0
+        for i in s:
+            if i not in c:
+                c.append(i)
+                b+=1
+                continue
+            else:
+                if b>z:
+                    z=b
+                b=1;c=[]
+                c.append(i)
+                continue
+        if b>0 and z==0:
+            z=b
+        return z
+    print(f'{main(s)}')
+def huiwen37():
+    """
+    给你一个字符串 s，找到 s 中最长的 回文子串。
+
+    示例 1：
+    输入：s = "babad"
+    输出："bab"
+    解释："aba" 同样是符合题意的答案。
+
+    示例 2：
+    输入：s = "cbbd"
+    输出："bb"
+    """
+    s=input()
+    # def pan(ss):
+    #     for i in range(0, len(ss) // 2):
+    #         if ss[i] == ss[len(ss) - 1 - i]:
+    #             continue
+    #         else:
+    #             return False
+    #     return True
+    def pan(ss):
+        if ss==ss[::-1]:
+            return True
+        else:
+            return False
+    b=1;zz=''
+    if len(s)==1:
+        b=1;zz=s
+    for i in range(len(s)):
+        for j in range(i+1,len(s)):
+            ss=s[i:j+1]
+            if pan(ss):
+                if len(ss)>=b:
+                    b=len(ss)
+                    zz=ss
+    print(f'{zz}')
+def zzi38():
+    """
+    将一个给定字符串 s 根据给定的行数 numRows ，
+    以从上往下、从左到右进行 Z 字形排列。
+    比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下：
+    P   A   H   N
+    A P L S I I G
+    Y   I   R
+    之后，你的输出需要从左往右逐行读取，产生出一个新的字符串,
+    比如："PAHNAPLSIIGYIR"。
+
+    示例 1：
+    输入：s = "PAYPALISHIRING", numRows = 3
+    输出："PAHNAPLSIIGYIR"
+
+    示例 2：
+    输入：s = "PAYPALISHIRING", numRows = 4
+    输出："PINALSIGYAHRPI"
+    解释：
+    P     I    N
+    A   L S  I G
+    Y A   H R
+    P     I
+
+    示例 3：
+    输入：s = "A", numRows = 1
+    输出："A"
+    """
+    s=input()
+    n=int(input())
+    if n==1:
+        print(s)
+    l1=[s[i] for i in range(0,len(s),2*n-2)]
+    l2=[s[2]]
+    for i in range(-2,len(s),2*n-2):
+        if i<0:
+            continue
+        l2.append(s[i])
+        l2.append(s[i+2])
+
+    ln=[s[i] for i in range(n-1,len(s),2*n-2)]
 if __name__=='__main__':
-    sushu32()
+    huiwen37()
