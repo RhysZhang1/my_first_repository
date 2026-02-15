@@ -1290,5 +1290,82 @@ def zzi38():
         l2.append(s[i+2])
 
     ln=[s[i] for i in range(n-1,len(s),2*n-2)]
+def pan39():
+    n=int(input())
+    if not (n & (n-1)):
+        print('true')
+    else:
+        print('false')
+def fanzhuan40():
+    """
+    给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。
+    如果反转后整数超过 32 位的有符号整数的范围 [−231,  231 − 1] ，就返回 0。
+    假设环境不允许存储 64 位整数（有符号或无符号）。
+
+    示例 1：
+    输入：x = 123
+    输出：321
+
+    示例 2：
+    输入：x = -123
+    输出：-321
+
+    示例 3：
+    输入：x = 120
+    输出：21
+
+    示例 4：
+    输入：x = 0
+    输出：0
+    """
+    n=int(input())
+    if n>=0:
+        n=str(n)
+        n=n[::-1]
+        print(f'{int(n)}')
+    else:
+        n=str(n)
+        n=n[1:len(n)]
+        n=n[::-1]
+        n='-'+n
+        print(f'{int(n)}')
+def chengshui41():
+    """
+    给定一个整数数组 n 。
+    每个整数代表一个垂线，第 i 条线的两个端点是 (i, 0) 和 (i, n[i]) 。
+    每两条垂线的间距为x,垂线宽度不计
+    找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+    说明：你不能倾斜容器。
+    """
+    n=eval(input(),globals())
+    x=int(input())
+    @timer
+    def main(n,x):
+        l = 0;h = 0;s = 0;m = 0
+        for i in range(len(n)-1):
+            for j in range(i+1,len(n)):
+                h=min(n[i],n[j])
+                l=(j-i)*x
+                s=l*h
+                if s>m:
+                    m=s
+        return m
+    @timer
+    def gai(n,x):
+        l=0;r=len(n)-1
+        m=0;s=0
+        while l<r:
+            s=min(n[l],n[r])*(r-l)*x
+            if s>m:
+                m=s
+            if n[l]<=n[r]:
+                l=l+1
+            else:
+                r=r-1
+        return m
+    max=main(n,x)
+    mmax=gai(n,x)
+    print(f'{max}|{mmax}')
+
 if __name__=='__main__':
-    huiwen37()
+    chengshui41()
