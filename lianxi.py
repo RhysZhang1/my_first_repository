@@ -1409,6 +1409,40 @@ def luoma42():
       90 = XC
        4 = IV
     """
+    n=input()
+    l=len(n)
+    if l>4:
+        print('error!')
+        return
+    d=[int(i) for i in n]
+    d=[0]*(4-l)+d
+    d[0]='M'*(d[0])
+    if 0<=d[1]<4:
+        d[1]='C'*(d[1])
+    elif d[1]==4:
+        d[1]='CD'
+    elif 4<d[1]<9:
+        d[1]='D'+'C'*(d[1]-5)
+    else:
+        d[1]='CM'
+    if 0<=d[2]<4:
+        d[2]='X'*(d[2])
+    elif d[2]==4:
+        d[2]='XL'
+    elif 4<d[2]<9:
+        d[2]='L'+'X'*(d[2]-5)
+    else:
+        d[2]='XC'
+    if 0<=d[3]<4:
+        d[3]='I'*(d[3])
+    elif d[3]==4:
+        d[3]='IV'
+    elif 4<d[3]<9:
+        d[3]='V'+'I'*(d[3]-5)
+    else:
+        d[3]='IX'
+    luo=''.join(d)
+    print(luo)
 if __name__=='__main__':
-    '''37 N 暂弃'''
-    chengshui41()
+    '''37 Z 暂弃'''
+    luoma42()
