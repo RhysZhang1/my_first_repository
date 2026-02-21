@@ -1281,15 +1281,9 @@ def zzi38():
     n=int(input())
     if n==1:
         print(s)
-    l1=[s[i] for i in range(0,len(s),2*n-2)]
-    l2=[s[2]]
-    for i in range(-2,len(s),2*n-2):
-        if i<0:
-            continue
-        l2.append(s[i])
-        l2.append(s[i+2])
-
-    ln=[s[i] for i in range(n-1,len(s),2*n-2)]
+    def tongxiang(a,m,x,y):
+        an=a+math.floor((n-1)/(m+1))*(m*x+y)+x*((n-1)%(m+1)) #a首项，m是加x的次数，x,y加的值，
+        return an
 def pan39():
     n=int(input())
     if not (n & (n-1)):
@@ -1448,7 +1442,7 @@ def sanhe43():
     给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]]
     满足 i != j、i != k 且 j != k ，
     同时还满足 nums[i] + nums[j] + nums[k] == 0
-    请你返回所有和为 0 且不重复的三元组。
+    输出所有和为 0 且不重复的三元组。
     注意：答案中不可以包含重复的三元组。
 
     示例 1：
@@ -1472,10 +1466,10 @@ def sanhe43():
     解释：唯一可能的三元组和为 0 。
     """
     exec(input("格式： nums = 数组  ："),globals())
-    jg=[];h=0;y=0;c=[]
+    jg=[];h=0;y=0;
     for i in range(len(nums)-1):
         for j in range(i+1,len(nums)):
-            b=nums[:]
+            b=nums[:];c=[]
             h=nums[i]+nums[j]
             y=0-h
             if y not in nums:
@@ -1488,6 +1482,13 @@ def sanhe43():
             c.append(y)
             c.sort()
             jg.append(c)
+    def quchong(jg):
+        x=[];
+        for i in jg:
+            if i not in x:
+                x.append(i)
+        return x
+    jg=quchong(jg)
     print(jg)
 if __name__=='__main__':
     '''37 Z 暂弃'''
