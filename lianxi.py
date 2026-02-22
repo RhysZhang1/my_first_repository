@@ -1281,9 +1281,14 @@ def zzi38():
     n=int(input())
     if n==1:
         print(s)
-    def tongxiang(a,m,x,y):
-        an=a+math.floor((n-1)/(m+1))*(m*x+y)+x*((n-1)%(m+1)) #a首项，m是加x的次数，x,y加的值，
+    def tongxiang(a,m,n,x,y):
+        an=a+(math.floor((n-1)/(m+1))*(m*x+y))+(x*((n-1)%(m+1))) #a首项，m是加x的次数，x,y加的值，
         return an
+    h=[];z=[]
+    if n%2==0:
+        for i in range(n/2):
+            for j in range(1,len(s)):
+                x=tongxiang
 def pan39():
     n=int(input())
     if not (n & (n-1)):
@@ -1490,6 +1495,10 @@ def sanhe43():
         return x
     jg=quchong(jg)
     print(jg)
+def 44():
+    """
+
+    :return:
+    """
 if __name__=='__main__':
-    '''37 Z 暂弃'''
     sanhe43()
