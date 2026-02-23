@@ -2,6 +2,7 @@ from string import digits
 import math
 import random
 import time
+import itertools
 
 def timer(func):
     def wrapper(*args, **kwargs):
@@ -1495,10 +1496,52 @@ def sanhe43():
         return x
     jg=quchong(jg)
     print(jg)
-def 44():
+def jinsan44():
     """
+    给你一个长度为 n 的整数数组 nums 和 一个目标值 target。
+    请你从 nums 中选出三个在 不同下标位置 的整数，使它们的和与 target 最接近。
+    返回这三个数的和。
+    假定每组输入只存在恰好一个解。
 
-    :return:
+    示例 1：
+    输入：nums = [-1,2,1,-4]; target = 1
+    输出：2
+    解释：与 target 最接近的和是 2 (-1 + 2 + 1 = 2)。
+
+    示例 2：
+    输入：nums = [0,0,0]; target = 1
+    输出：0
+    解释：与 target 最接近的和是 0（0 + 0 + 0 = 0）。
     """
+    exec(input("格式：nums = 列表 ； target = 整数 ："),globals())
+    min=1000000;h=0;p=0
+    # a=list(itertools.combinations(range(len(nums)), 3))
+    def comb(nums):
+        a=[]
+        for i in range(len(nums)-1):
+            for j in range(i+1,len(nums)):
+                for k in range(j+1,len(nums)):
+                    z=[]
+                    z.append(i)
+                    z.append(j)
+                    z.append(k)
+                    z.sort()
+                    a.append(z)
+        def quchong(a):
+            x = [];
+            for i in a:
+                if i not in x:
+                    x.append(i)
+            return x
+        a=quchong(a)
+        return a
+    a=comb(nums)
+    for i in a:
+        x=i[0];y=i[1];z=i[2]
+        h=nums[x]+nums[y]+nums[z]
+        if abs(h-target)<min:
+            min=abs(h-target)
+            p=h
+    print(p)
 if __name__=='__main__':
-    sanhe43()
+    jinsan44()
