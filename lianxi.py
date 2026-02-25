@@ -3,6 +3,7 @@ import math
 import random
 import time
 import itertools
+from itertools import product
 
 def timer(func):
     def wrapper(*args, **kwargs):
@@ -1561,11 +1562,32 @@ def bohao45():
     dui={2:'abc',3:'def',4:'ghi',5:'jkl',6:'mno',7:'pqrs',8:'tuv',9:'wxyz'}
     s=[dui[int(i)] for i in a]
     l=len(s)
-    ss=[]
-    for i in s:
-        x=[j for j in i]
-        ss.append(x)
-    print(s)
-    print(ss)
+    q=[len(i) for i in s]
+    p=[0 for i in s]
+    c=[];q[0]=q[0]+1
+    while True:
+        c.append(p[:])
+        for i in range(len(p)-1,-1,-1):
+            if p[i]==q[i]-1:
+                continue
+            else:
+                p[i]+=1
+                for j in range(i+1,len(q)):
+                    p[j]=0
+                break
+        if p[0]==q[0]-1:
+            break
+    zzz=[]
+    for i in c:
+        m=0;xx=[]
+        for j in range(l):
+            xx.append(s[j][i[m]])
+            m+=1
+        aa=''.join(xx)
+        zzz.append(aa)
+    print(zzz)
+    # letters = [dui[int(ch)] for ch in a]
+    # result = [''.join(comb) for comb in product(*letters)]
+    # print(result)
 if __name__=='__main__':
     bohao45()
