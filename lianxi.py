@@ -1589,5 +1589,61 @@ def bohao45():
     let = [dui[int(ch)] for ch in a]
     re = [''.join(co) for co in product(*let)]
     print(re)
+def sihe46():
+    """
+    给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。
+    请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]]
+    （若两个四元组元素一一对应，则认为两个四元组重复）：
+    0 <= a, b, c, d < n
+    a、b、c 和 d 互不相同
+    nums[a] + nums[b] + nums[c] + nums[d] == target
+    你可以按 任意顺序 返回答案 。
+
+    示例 1：
+    输入：nums = [1,0,-1,0,-2,2]; target = 0
+    输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+
+    示例 2：
+    输入：nums = [2,2,2,2,2]; target = 8
+    输出：[[2,2,2,2]]
+    """
+    exec(input('格式：nums = 数组; target = 数  :'),globals())
+    if len(nums)<4:
+        print('error')
+        return
+    def co(nums):
+        a=[]
+        for i in range(len(nums)-1):
+            for j in range(i+1,len(nums)):
+                for k in range(j+1,len(nums)):
+                    for l in range(k+1,len(nums)):
+                        z=[]
+                        z.append(i)
+                        z.append(j)
+                        z.append(k)
+                        z.append(l)
+                        z.sort()
+                        a.append(z[:])
+        return a
+    a=co(nums)
+    jg=[]
+    for i in a:
+        x=0
+        li=[]
+        for j in i:
+            x+=nums[j]
+        if x==target:
+            for j in i:
+                li.append(nums[j])
+            li.sort()
+            jg.append(li[:])
+    def chong(j):
+        fj=[]
+        for i in j:
+            if i not in fj:
+                fj.append(i)
+        return fj
+    j=chong(jg)
+    print(j)
 if __name__=='__main__':
-    bohao45()
+    sihe46()
