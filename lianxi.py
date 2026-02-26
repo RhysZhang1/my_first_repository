@@ -1586,8 +1586,8 @@ def bohao45():
         aa=''.join(xx)
         zzz.append(aa)
     print(zzz)
-    # letters = [dui[int(ch)] for ch in a]
-    # result = [''.join(comb) for comb in product(*letters)]
-    # print(result)
+    let = [dui[int(ch)] for ch in a]
+    re = [''.join(co) for co in product(*let)]
+    print(re)
 if __name__=='__main__':
     bohao45()
