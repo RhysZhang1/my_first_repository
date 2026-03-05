@@ -1660,10 +1660,7 @@ def shengkuo47():
     """
     n=int(input())
     jg=[]
-    x=('('*n)+(')'*n)
-    y='()'*n
-    jg.append(x)
-    jg.append(y)
-
+    for i in range(2,n+1):
+        pass
 if __name__=='__main__':
     shengkuo47()
