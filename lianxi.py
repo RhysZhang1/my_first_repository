@@ -1659,8 +1659,16 @@ def shengkuo47():
     输出：["()"]
     """
     n=int(input())
-    jg=[]
-    for i in range(2,n+1):
-        pass
+    jg=set();a2={'()'}
+    for i in range(n-1):
+        a1=set()
+        for j in a2:
+            for k in range(len(j)+1):
+                x=j[:k]+'()'+j[k:]
+                a1.add(x)
+        a2=a1
+    a2=list(a2)
+    a2.sort()
+    print(a2)
 if __name__=='__main__':
     shengkuo47()
