@@ -1718,7 +1718,7 @@ def chongpai48():
     zzz=zz[:xun]+zz[xun+1:]
     xin=nums[:x-1]+[zz[xun]]+zzz
     print(xin)
-def waiguan():
+def waiguan49():
     """
     「外观数列」是一个数位字符串序列，由递归公式定义：
     countAndSay(1) = "1"
@@ -1747,8 +1747,64 @@ def waiguan():
     n=int(input())
     def countAndSay(n):
         if n==1:
-            return 1
+            return "1"
+        elif n==2:
+            return "11"
+        elif n==3:
+            return "21"
+        elif n==4:
+            return "1211"
         else:
-            countAndSay(n-1)
+            x=countAndSay(n-1)
+            j=1;z=''
+            for i in range(1,len(x)):
+                if i==(len(x)-1):
+                    if x[i]==x[i-1]:
+                        j+=1
+                        z+=(str(j)+x[i-1])
+                        break
+                    else:
+                        z=z+(str(j)+x[i-1])
+                        z=z+('1'+x[i])
+                        break
+                elif x[i]==x[i-1]:
+                    j+=1
+                    continue
+                else:
+                    z=z+(str(j)+x[i-1])
+                    j=1
+                    continue
+            return z
+    print(countAndSay(n))
+def zuhe50():
+    """
+    给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，
+    找出 candidates 中可以使数字和为目标数 target 的 所有 不同组合 ，并以列表形式返回。你可以按 任意顺序 返回这些组合。
+    candidates 中的 同一个 数字可以 无限制重复被选取 。如果至少一个数字的被选数量不同，则两种组合是不同的。
+    对于给定的输入，保证和为 target 的不同组合数少于 150 个。
+
+    示例 1：
+    输入：candidates = [2,3,6,7], target = 7
+    输出：[[2,2,3],[7]]
+    解释：
+    2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2 可以使用多次。
+    7 也是一个候选， 7 = 7 。
+    仅有这两种组合。
+
+    示例 2：
+    输入: candidates = [2,3,5], target = 8
+    输出: [[2,2,2,2],[2,3,3],[3,5]]
+
+    示例 3：
+    输入: candidates = [2], target = 1
+    输出: []
+    """
+    nu=eval(input())
+    ta=int(input())
+    z=[];nuu=nu[:]
+    for i in nuu:
+        if i>ta:
+            nu.remove(i)
+
 if __name__=='__main__':
-    chongpai48()
+    waiguan49()
