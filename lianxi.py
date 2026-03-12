@@ -1801,10 +1801,11 @@ def zuhe50():
     """
     nu=eval(input())
     ta=int(input())
-    z=[];nuu=nu[:]
+    nuu=nu[:]
     for i in nuu:
         if i>ta:
             nu.remove(i)
-
+    nu.sort()
+    z=[]
 if __name__=='__main__':
     waiguan49()
