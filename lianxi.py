@@ -1807,5 +1807,118 @@ def zuhe50():
             nu.remove(i)
     nu.sort()
     z=[]
+    def huisu(s,t,p):
+        if t==0:
+            z.append(p[:])
+            return
+        for i in range(s,len(nu)):
+            if nu[i]>t:
+                break
+            p.append(nu[i])
+            huisu(i,t-nu[i],p)
+            p.pop(0)
+    huisu(0,ta,[])
+    print(z)
+def zonghe51():
+    """
+    给定一个候选人编号的集合 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+    candidates 中的每个数字在每个组合中只能使用 一次 。
+    注意：解集不能包含重复的组合。
+
+    示例 1:
+    输入: candidates = [10,1,2,7,6,1,5], target = 8,
+    输出:
+    [
+    [1,1,6],
+    [1,2,5],
+    [1,7],
+    [2,6]
+    ]
+
+    示例 2:
+    输入: candidates = [2,5,2,1,2], target = 5,
+    输出:
+    [
+    [1,2,2],
+    [5]
+    ]
+    """
+    nu=eval(input())
+    ta=int(input())
+    nuu=nu[:]
+    for i in nuu:
+        if i>ta:
+            nu.remove(i)
+    nu.sort()
+    z=[]
+    def huisu(s,t,p):
+        if t==0:
+            z.append(p[:])
+            return
+        for i in range(s,len(nu)):
+            if nu[i]>t:
+                break
+            p.append(nu[i])
+            huisu(i+1,t-nu[i],p)
+            p.pop()
+    huisu(0,ta,[])
+    def chong(z):
+        x=[]
+        for i in z:
+            if i not in x:
+                x.append(i)
+        return x
+    z=chong(z)
+    print(z)
+def queshi52():
+    """
+    给你一个未排序的整数数组 nums ，请你找出其中没有出现的最小的正整数。
+    请你实现时间复杂度为 O(n) 并且只使用常数级别额外空间的解决方案。
+     
+    示例 1：
+    输入：nums = [1,2,0]
+    输出：3
+    解释：范围 [1,2] 中的数字都在数组中。
+    
+    示例 2：
+    输入：nums = [3,4,-1,1]
+    输出：2
+    解释：1 在数组中，但 2 没有。
+    
+    示例 3：
+    输入：nums = [7,8,9,11,12]
+    输出：1
+    解释：最小的正数 1 没有出现。
+    """
+    nums=eval(input())
+    if max(nums)<=0:
+        print('1')
+        return
+    x=[False]*(max(nums)+1)
+    for i in nums:
+        if i>0:
+            x[i-1]=True
+    for i in range((max(nums)+1)):
+        if not x[i]:
+            print(i+1)
+            return
+def tiaoyue53():
+    """
+    给定一个长度为 n 的 0 索引整数数组 nums。初始位置在下标 0。
+    每个元素 nums[i] 表示从索引 i 向后跳转的最大长度。换句话说，如果你在索引 i 处，你可以跳转到任意 (i + j) 处：
+    0 <= j <= nums[i] 且
+    i + j < n
+    返回到达 n - 1 的最小跳跃次数。测试用例保证可以到达 n - 1。
+
+    示例 1:
+    输入: nums = [2,3,1,1,4]
+    输出: 2
+    解释: 跳到最后一个位置的最小跳跃数是 2。
+         从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
+
+    示例 2:
+    输入: nums = [2,3,0,1,4]
+    输出: 2
+    """
 if __name__=='__main__':
-    waiguan49()
+    queshi52()
