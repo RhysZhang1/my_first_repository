@@ -1920,5 +1920,20 @@ def tiaoyue53():
     输入: nums = [2,3,0,1,4]
     输出: 2
     """
+    nums=eval(input())
+    if len(nums)==1:
+        print('0')
+        return
+    x=0;c=1
+    while True:
+        if x+nums[x]>=len(nums)-1:
+            break
+        xi=[(i+1+nums[i+1+x]) for i in range(nums[x]) if i+1+x<len(nums)]
+        t=max(xi)
+        x+=xi.index(t)+1
+        if x>=len(nums)-1:
+            break
+        c+=1
+    print(c)
 if __name__=='__main__':
-    queshi52()
+    tiaoyue53()
