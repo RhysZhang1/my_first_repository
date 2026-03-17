@@ -1952,5 +1952,6 @@ def quanpailie54():
     输出：[[1]]
     """
     nums=eval(input())
+    nums.sort()
 if __name__=='__main__':
-    quanpailie54()
+    tiaoyue53()
