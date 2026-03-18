@@ -1952,6 +1952,20 @@ def quanpailie54():
     输出：[[1]]
     """
     nums=eval(input())
-    nums.sort()
+    re=[]
+    used=[False]*len(nums)
+    def pai(pa,used):
+        if len(pa)==len(nums):
+            re.append(pa[:])
+            return
+        for i in range(len(nums)):
+            if not used[i]:
+                used[i]=True
+                pa.append(nums[i])
+                pai(pa,used)
+                pa.pop()
+                used[i]=False
+    pai([],used)
+    print(re)
 if __name__=='__main__':
-    tiaoyue53()
+    quanpailie54()
