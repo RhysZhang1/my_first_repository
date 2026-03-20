@@ -1986,5 +1986,41 @@ def xuanzhuan55():
         for j in range(i,len(m)-1-i):
             m[i][i+j],m[i+j][-1-i],m[-1-i][-1-i-j],m[-1-i-j][0+i]=m[-1-i-j][0+i],m[i][i+j],m[i+j][-1-i],m[-1-i][-1-i-j]
     print(m)
+def yiwei56():
+    """
+    给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。
+
+    示例 1:
+    输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
+    解释：
+    在 strs 中没有字符串可以通过重新排列来形成 "bat"。
+    字符串 "nat" 和 "tan" 是字母异位词，因为它们可以重新排列以形成彼此。
+    字符串 "ate" ，"eat" 和 "tea" 是字母异位词，因为它们可以重新排列以形成彼此。
+
+    示例 2:
+    输入: strs = [""]
+    输出: [[""]]
+
+    示例 3:
+    输入: strs = ["a"]
+    输出: [["a"]]
+    """
+    strs=eval(input())
+    z=[[] for i in range(len(strs))];yan=[]
+    for i in strs:
+        x=[]
+        for j in i:
+            x.append(j)
+        x.sort()
+        if x not in yan:
+            yan.append(x)
+        n=yan.index(x)
+        z[n].append(i)
+    zz=[]
+    for i in z:
+        if i!=[]:
+            zz.append(i)
+    print(zz)
 if __name__=='__main__':
-    xuanzhuan55()
+    yiwei56()
