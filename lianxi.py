@@ -2050,5 +2050,39 @@ def zishu57():
                 max=h
             h=0
     print(max)
+def luoxuan58():
+    """
+    给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。
+    输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
+    输出：[1,2,3,6,9,8,7,4,5]
+    输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+    输出：[1,2,3,4,8,12,11,10,9,5,6,7]
+    """
+    nums=eval(input())
+    zz=[]
+    while True:
+        if not nums:
+            break
+        for j in nums[0]:
+            zz.append(j)
+        del nums[0]
+        if not nums:
+            break
+        for j in range(len(nums)):
+            zz.append(nums[j][-1])
+            del nums[j][-1]
+        if not nums:
+            break
+        l=len(nums[-1])
+        for j in range(l-1,-1,-1):
+            zz.append(nums[-1][j])
+        del nums[-1]
+        if not nums:
+            break
+        for j in range(len(nums)-1,-1,-1):
+            zz.append(nums[j][0])
+            del nums[j][0]
+        print(nums)
+    print(zz)
 if __name__=='__main__':
-    zishu57()
+    luoxuan58()
