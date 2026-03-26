@@ -2221,5 +2221,8 @@ def luoxuan61():
     输入：n = 1
     输出：[[1]]
     """
+    n=int(input())
+    z=[[0 for __ in range(n)] for _ in range(n)]
+
 if __name__=='__main__':
-    hebing60()
+    luoxuan61()
