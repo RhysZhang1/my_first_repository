@@ -2223,6 +2223,37 @@ def luoxuan61():
     """
     n=int(input())
     z=[[0 for __ in range(n)] for _ in range(n)]
-
+    h=0;l=0;b=1
+    for i in range(1,(n**2)+1):
+        z[h][l]=i
+        if b==1:
+            if 0<=l+1<n and z[h][l+1]==0:
+                l+=1
+                continue
+            else:
+                h+=1;b=2
+                continue
+        if b==2:
+            if 0<=h+1<n and z[h+1][l]==0:
+                h+=1
+                continue
+            else:
+                l-=1;b=3
+                continue
+        if b==3:
+            if 0<=l-1<n and z[h][l-1]==0:
+                l-=1
+                continue
+            else:
+                h-=1;b=4
+                continue
+        if b==4:
+            if 0<=h-1<n and z[h-1][l]==0:
+                h-=1
+                continue
+            else:
+                l+=1;b=1
+                continue
+    print(z)
 if __name__=='__main__':
     luoxuan61()
