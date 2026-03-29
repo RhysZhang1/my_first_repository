@@ -2298,5 +2298,21 @@ def yidong63():
     输入：obstacleGrid = [[0,1],[0,0]]
     输出：1
     """
+    num=eval(input())
+    x=len(num)
+    y=len(num[0])
+    for i in range(x):
+        if 1 not in num[i]:
+            continue
+        else:
+            for j in range(y):
+                if num[i][j]==1:
+                    m=i
+                    n=j
+                    break
+    z1=math.comb(x+y-2,x-1)
+    z2=math.comb(m+n,m)
+    z3=math.comb(x-1-m+y-1-n,x-1-m)
+    print(z1-z2*z3)
 if __name__=='__main__':
-    zougezi62()
+    yidong63()
