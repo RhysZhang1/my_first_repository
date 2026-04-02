@@ -2,8 +2,12 @@ from string import digits
 import math
 import random
 import time
+import copy
 import itertools
 from itertools import product
+
+from numpy.ma.core import append
+
 
 def timer(func):
     def wrapper(*args, **kwargs):
@@ -1776,7 +1780,7 @@ def waiguan49():
                     continue
             return z
     print(countAndSay(n))
-def zuhe50():
+def zuhe50():           #回溯
     """
     给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，
     找出 candidates 中可以使数字和为目标数 target 的 所有 不同组合 ，并以列表形式返回。你可以按 任意顺序 返回这些组合。
@@ -1819,7 +1823,7 @@ def zuhe50():
             p.pop(0)
     huisu(0,ta,[])
     print(z)
-def zonghe51():
+def zonghe51():     #回溯
     """
     给定一个候选人编号的集合 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
     candidates 中的每个数字在每个组合中只能使用 一次 。
@@ -1935,7 +1939,7 @@ def tiaoyue53():
             break
         c+=1
     print(c)
-def quanpailie54():
+def quanpailie54():         #全排列
     """
     给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。
 
@@ -2314,7 +2318,83 @@ def yidong63():
     z2=math.comb(m+n,m)
     z3=math.comb(x-1-m+y-1-n,x-1-m)
     print(z1-z2*z3)
-def luhe64():
+def bianji64():         #动态规划
+    """
+    输入两个单词 word1 和 word2， 输出将 word1 转换成 word2 所使用的最少操作数  。
+    你可以对一个单词进行如下三种操作：
+    插入一个字符
+    删除一个字符
+    替换一个字符
+
+    示例 1：
+    输入：word1 = "horse"; word2 = "ros"
+    输出：3
+    解释：
+    horse -> rorse (将 'h' 替换为 'r')
+    rorse -> rose (删除 'r')
+    rose -> ros (删除 'e')
+
+    示例 2：
+    输入：word1 = "intention" ; word2 = "execution"
+    输出：5
+    解释：
+    intention -> inention (删除 't')
+    inention -> enention (将 'i' 替换为 'e')
+    enention -> exention (将 'n' 替换为 'x')
+    exention -> exection (将 'n' 替换为 'c')
+    exection -> execution (插入 'u')
+    """
+    exec(input(),globals())
+    m = len(word1)
+    n = len(word2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(m + 1):
+        dp[i][0] = i
+    for j in range(n + 1):
+        dp[0][j] = j
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if word1[i-1] == word2[j-1]:
+                dp[i][j] = dp[i-1][j-1]
+            else:
+                dp[i][j] = min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + 1
+    print(dp[m][n])
+def zhiling65():
+    """
+    给定一个 m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为 0 。请使用 原地 算法。
+
+    示例 1：
+    输入：matrix = [[1,1,1],[1,0,1],[1,1,1]]
+    输出：[[1,0,1],[0,0,0],[1,0,1]]
+
+    示例 2：
+    输入：matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+    输出：[[0,0,0,0],[0,4,5,0],[0,3,1,0]]
+    """
+    m=eval(input())
+    x=len(m)
+    y=len(m[0])
+    cha=[]
+    i=0
+    while i<x:
+        if 0 in m[i]:
+            ii=m[i].index(0)
+            z=[]
+            z.append(i)
+            z.append(ii)
+            cha.append(z[:])
+            m[i][ii]=1
+            continue
+        i+=1
+    for i in range(len(cha)):
+        a=cha[i][0]
+        b=cha[i][1]
+        for j in range(x):
+            m[j][b]=0
+        for k in range(y):
+            m[a][k]=0
+    print(m)
+def luhe66():                   #动态规划
     """
     给定一个包含非负整数的 m x n 的用二维数组表示的网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
     说明：每次只能向下或者向右移动一步。
@@ -2341,6 +2421,124 @@ def luhe64():
         for j in range(1,n):
             dp[i][j]=min(dp[i-1][j],dp[i][j-1])+grid[i][j]
     print(dp[-1][-1])
-    
+def suoci67():
+    """
+    给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。
+    如果 word 存在于网格中，返回 true ；否则，返回 false 。
+    单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。
+    同一个单元格内的字母不允许被重复使用。
+
+    示例 1：
+    输入：board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']]; word = "ABCCED"
+    输出：true
+
+    示例 2：
+    输入：board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']]; word = "SEE"
+    输出：true
+
+    示例 3：
+    输入：board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']]; word = "ABCB"
+    输出：false
+    """
+    exec(input(),globals())
+    m=len(board)
+    n=len(board[0])
+    y=[]
+    j=0
+    while j<m:
+        if word[0] in board[j]:
+            z=[]
+            jj=board[j].index(word[0])
+            if board[j][jj]!=0:
+                z.append(j)
+                z.append(jj)
+                y.append(z[:])
+                board[j][jj]=0
+            continue
+        j+=1
+    for i in y:
+        b = [[0 for __ in range(n)] for _ in range(m)]
+        xx=1
+        x=i[0]
+        y=i[1]
+        while xx<len(word):
+            b[x][y]=1
+            if (0<=x+1<m and board[x+1][y]==word[xx] and b[x+1][y]==0):
+                x=x+1;xx+=1
+                continue
+            elif (0<=x-1<m and board[x-1][y]==word[xx] and b[x-1][y]==0) :
+                x=x-1;xx+=1
+                continue
+            elif (0<=y+1<n and board[x][y+1]==word[xx] and b[x][y+1]==0) :
+                y=y+1;xx+=1
+                continue
+            elif (0<=y-1<n and board[x][y-1]==word[xx] and b[x][y-1]==0) :
+                y=y-1;xx+=1
+                continue
+            else:
+                break
+        if xx!=len(word):
+            continue
+        else:
+            print('ture')
+            return
+    print('false')
+def suoci67new():
+    exec(input(),globals())
+    m=len(board)
+    n=len(board[0])
+    y=[]
+    j=0
+    bb=copy.deepcopy(board)
+    while j<m:
+        if word[0] in bb[j]:
+            z=[]
+            jj=bb[j].index(word[0])
+            z.append(j)
+            z.append(jj)
+            y.append(z[:])
+            bb[j][jj]=0
+            continue
+        j+=1
+    zz=[]
+    def huisu(x,y,xx):
+        if xx==len(word):
+            zz.append('1')
+            return
+        b[x][y]=1
+        if (0<=x+1<m and board[x+1][y]==word[xx] and b[x+1][y]==0):
+            x=x+1;xx+=1;b[x][y]=1
+            huisu(x,y,xx)
+            if zz:
+                return
+            b[x][y]=0;x-=1;xx-=1
+        if (0<=x-1<m and board[x-1][y]==word[xx] and b[x-1][y]==0) :
+            x=x-1;xx+=1;b[x][y]=1
+            huisu(x,y,xx)
+            if zz:
+                return
+            b[x][y]=0;x+=1;xx-=1
+        if (0<=y+1<n and board[x][y+1]==word[xx] and b[x][y+1]==0) :
+            y=y+1;xx+=1;b[x][y]=1
+            huisu(x,y,xx)
+            if zz:
+                return
+            b[x][y]=0;y-=1;xx-=1
+        if (0<=y-1<n and board[x][y-1]==word[xx] and b[x][y-1]==0) :
+            y=y-1;xx+=1;b[x][y]=1
+            huisu(x,y,xx)
+            if zz:
+                return
+            b[x][y]=0;y+=1;xx-=1
+    for i in y:
+        b = [[0 for __ in range(n)] for _ in range(m)]
+        xx=1
+        x=i[0]
+        y=i[1]
+        huisu(x,y,xx)
+    if zz:
+        print('true')
+    else:
+        print('false')
 if __name__=='__main__':
-    luhe64()
+    suoci67new()
