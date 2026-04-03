@@ -2487,7 +2487,7 @@ def suoci67new():
     exec(input(),globals())
     m=len(board)
     n=len(board[0])
-    y=[]
+    yy=[]
     j=0
     bb=copy.deepcopy(board)
     while j<m:
@@ -2496,7 +2496,7 @@ def suoci67new():
             jj=bb[j].index(word[0])
             z.append(j)
             z.append(jj)
-            y.append(z[:])
+            yy.append(z[:])
             bb[j][jj]=0
             continue
         j+=1
@@ -2530,7 +2530,7 @@ def suoci67new():
             if zz:
                 return
             b[x][y]=0;y+=1;xx-=1
-    for i in y:
+    for i in yy:
         b = [[0 for __ in range(n)] for _ in range(m)]
         xx=1
         x=i[0]
@@ -2540,5 +2540,32 @@ def suoci67new():
         print('true')
     else:
         print('false')
+def ziji68():
+    """
+    给你一个整数数组 nums ，其中可能包含重复元素，请你返回该数组所有可能的 子集（幂集）。
+    解集 不能 包含重复的子集。返回的解集中，子集可以按 任意顺序 排列。
+
+    示例 1：
+    输入：nums = [1,2,2]
+    输出：[[],[1],[1,2],[1,2,2],[2],[2,2]]
+
+    示例 2：
+    输入：nums = [0]
+    输出：[[],[0]]
+    """
+    nums=eval(input())
+    nums.sort()
+    re=[]
+    pa=[]
+    def hs(s):
+        re.append(pa[:])
+        for i in range(s, len(nums)):
+            if i > s and nums[i] == nums[i-1]:
+                continue
+            pa.append(nums[i])
+            hs(i + 1)
+            pa.pop()
+    hs(0)
+    print(re)
 if __name__=='__main__':
-    suoci67new()
+    ziji68()
