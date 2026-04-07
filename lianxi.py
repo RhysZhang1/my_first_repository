@@ -2614,5 +2614,136 @@ def jiema69():
         if 10 <= two_digit <= 26:
             dp[i] += dp[i-2]
     print(dp[n])
+def fuyuan70():
+    """
+    有效 IP 地址 正好由四个整数（每个整数位于 0 到 255 之间组成，且不能含有前导 0），整数之间用 '.' 分隔。
+    例如："0.1.2.201" 和 "192.168.1.1" 是 有效 IP 地址，但是 "0.011.255.245"、"192.168.1.312" 和 "192.168@1.1" 是 无效 IP 地址。
+    给定一个只包含数字的字符串 s ，用以表示一个 IP 地址，返回所有可能的有效 IP 地址，这些地址可以通过在 s 中插入 '.' 来形成。你 不能 重新排序或删除 s 中的任何数字。你可以按 任何 顺序返回答案。
+
+    示例 1：
+    输入：s = "25525511135"
+    输出：["255.255.11.135","255.255.111.35"]
+
+    示例 2：
+    输入：s = "0000"
+    输出：["0.0.0.0"]
+
+    示例 3：
+    输入：s = "101023"
+    输出：["1.0.10.23","1.0.102.3","10.1.0.23","10.10.2.3","101.0.2.3"]
+    """
+    s = input()
+    z = []
+    n = len(s)
+    def hs(st, p, path):
+        if p == 4:
+            if st == n:
+                z.append('.'.join(path))
+            return
+        for i in range(1, 4):
+            if st + i > n:
+                break
+            sm = s[st:st+i]
+            if (len(sm) > 1 and sm[0] == '0') or int(sm) > 255:
+                continue
+            hs(st + i, p + 1, path + [sm])
+    hs(0, 0, [])
+    print(z)
+def jiaocuo71():
+    """
+    给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。
+    两个字符串 s 和 t 交错 的定义与过程如下，其中每个字符串都会被分割成若干 非空 子字符串：
+    s = s1 + s2 + ... + sn
+    t = t1 + t2 + ... + tm
+    |n - m| <= 1
+    交错 是 s1 + t1 + s2 + t2 + s3 + t3 + ... 或者 t1 + s1 + t2 + s2 + t3 + s3 + ...
+    注意：a + b 意味着字符串 a 和 b 连接。
+
+    示例 1：
+    输入：s1 = "aabcc"; s2 = "dbbca"; s3 = "aadbbcbcac"
+    输出：true
+
+    示例 2：
+    输入：s1 = "aabcc"; s2 = "dbbca"; s3 = "aadbbbaccc"
+    输出：false
+
+    示例 3：
+    输入：s1 = ""; s2 = ""; s3 = ""
+    输出：true
+    """
+    exec(input(),globals())
+    if len(s1)+len(s2)!=len(s3):
+        print('false')
+        return
+    ss1=[_ for _ in s1]
+    ss2=[_ for _ in s2]
+    ss3=[_ for _ in s3]
+    if not sorted(ss1+ss2)==sorted(ss3):
+        print("false")
+        return
+    if len(ss1)==0 or len(ss2)==0:
+        if len(ss2)==0 and len(ss1)==0:
+            if len(ss3)==0:
+                print('true')
+                return
+            else:
+                print('false')
+                return
+        else:
+            if sorted(ss2)==sorted(ss3) or sorted(ss1)==sorted(ss3):
+                print('true')
+                return
+            else:
+                print('false')
+                return
+    for i in range(len(ss3)):
+        if ss2 and ss3[i]==ss2[0]:
+            ss2.remove(ss2[0])
+            continue
+        elif ss1 and ss3[i]==ss1[0]:
+            ss1.remove(ss1[0])
+            continue
+        else:
+            print('false')
+            return
+    print('true')
+def jiaocuo71new():
+    """
+    给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。
+    两个字符串 s 和 t 交错 的定义与过程如下，其中每个字符串都会被分割成若干 非空 子字符串：
+    s = s1 + s2 + ... + sn
+    t = t1 + t2 + ... + tm
+    |n - m| <= 1
+    交错 是 s1 + t1 + s2 + t2 + s3 + t3 + ... 或者 t1 + s1 + t2 + s2 + t3 + s3 + ...
+    注意：a + b 意味着字符串 a 和 b 连接。
+
+    示例 1：
+    输入：s1 = "aabcc"; s2 = "dbbca"; s3 = "aadbbcbcac"
+    输出：true
+
+    示例 2：
+    输入：s1 = "aabcc"; s2 = "dbbca"; s3 = "aadbbbaccc"
+    输出：false
+
+    示例 3：
+    输入：s1 = ""; s2 = ""; s3 = ""
+    输出：true
+    """
+    exec(input(),globals())
+    if len(s1)+len(s2)!=len(s3):
+        print('false')
+        return
+    m, n = len(s1), len(s2)
+    dp = [[False]*(n+1) for _ in range(m+1)]
+    dp[0][0] = True
+    for i in range(m+1):
+        for j in range(n+1):
+            if i > 0:
+                dp[i][j] = dp[i][j] or (dp[i-1][j] and s1[i-1]==s3[i+j-1])
+            if j > 0:
+                dp[i][j] = dp[i][j] or (dp[i][j-1] and s2[j-1]==s3[i+j-1])
+    print('true' if dp[m][n] else 'false')
+
 if __name__=='__main__':
-    jiema69()
+    jiaocuo71()
+    # jiaocuo71new()
