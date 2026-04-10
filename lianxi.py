@@ -2708,27 +2708,6 @@ def jiaocuo71():
             return
     print('true')
 def jiaocuo71new():
-    """
-    给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。
-    两个字符串 s 和 t 交错 的定义与过程如下，其中每个字符串都会被分割成若干 非空 子字符串：
-    s = s1 + s2 + ... + sn
-    t = t1 + t2 + ... + tm
-    |n - m| <= 1
-    交错 是 s1 + t1 + s2 + t2 + s3 + t3 + ... 或者 t1 + s1 + t2 + s2 + t3 + s3 + ...
-    注意：a + b 意味着字符串 a 和 b 连接。
-
-    示例 1：
-    输入：s1 = "aabcc"; s2 = "dbbca"; s3 = "aadbbcbcac"
-    输出：true
-
-    示例 2：
-    输入：s1 = "aabcc"; s2 = "dbbca"; s3 = "aadbbbaccc"
-    输出：false
-
-    示例 3：
-    输入：s1 = ""; s2 = ""; s3 = ""
-    输出：true
-    """
     exec(input(),globals())
     if len(s1)+len(s2)!=len(s3):
         print('false')
@@ -2743,7 +2722,27 @@ def jiaocuo71new():
             if j > 0:
                 dp[i][j] = dp[i][j] or (dp[i][j-1] and s2[j-1]==s3[i+j-1])
     print('true' if dp[m][n] else 'false')
+def lujing72():
+    """
+    给定一个三角形 triangle ，找出自顶向下的最小路径和。
+    每一步只能移动到下一行中相邻的结点上。
+    相邻的结点 在这里指的是 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。
+    也就是说，如果正位于当前行的下标 i ，那么下一步可以移动到下一行的下标 i 或 i + 1 。
+
+    示例 1：
+    输入：triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
+    输出：11
+    解释：如下面简图所示：
+       2
+      3 4
+     6 5 7
+    4 1 8 3
+    自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。
+
+    示例 2：
+    输入：triangle = [[-10]]
+    输出：-10
+    """
 
 if __name__=='__main__':
-    jiaocuo71()
-    # jiaocuo71new()
+    jiaocuo71new()
