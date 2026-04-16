@@ -1508,30 +1508,97 @@ def sanhe43():
     解释：唯一可能的三元组和为 0 。
     """
     exec(input("格式： nums = 数组  ："),globals())
-    jg=[];h=0;y=0;
-    for i in range(len(nums)-1):
-        for j in range(i+1,len(nums)):
-            b=nums[:];c=[]
-            h=nums[i]+nums[j]
-            y=0-h
-            if y not in nums:
+    def one(nums):
+        jg=[];h=0;y=0;
+        for i in range(len(nums)-1):
+            for j in range(i+1,len(nums)):
+                b=nums[:];c=[]
+                h=nums[i]+nums[j]
+                y=0-h
+                if y not in nums:
+                    continue
+                b.remove(nums[i]);b.remove(nums[j])
+                if y not in b:
+                    continue
+                c.append(nums[i])
+                c.append(nums[j])
+                c.append(y)
+                c.sort()
+                jg.append(c)
+        def quchong(jg):
+            x=[];
+            for i in jg:
+                if i not in x:
+                    x.append(i)
+            return x
+        jg=quchong(jg)
+        return jg
+
+    def two(nums):
+        l=len(nums);z=[]
+        nums.sort()
+        for i in range(l-2):
+            if nums[i]>=0:
+                break
+            for j in range(i+1,l-1):
+                if nums[i]+nums[j]>=0:
+                    break
+                for k in range(j+1,l):
+                    if nums[k]<0:
+                        continue
+                    h=nums[i]+nums[j]+nums[k]
+                    if h==0:
+                        x=[]
+                        x.append(nums[i])
+                        x.append(nums[j])
+                        x.append(nums[k])
+                        z.append(x[:])
+                    if h>0:
+                        break
+        def quchong(jg):
+            x=[];
+            for i in jg:
+                if i not in x:
+                    x.append(i)
+            return x
+        z=quchong(z)
+        return z
+
+    def three(nums):
+        nums.sort()
+        zz = []
+        x = ""
+        for i in range(len(nums) - 2):
+            y = ""
+            z = ""
+            if x == nums[i]:
                 continue
-            b.remove(nums[i]);b.remove(nums[j])
-            if y not in b:
-                continue
-            c.append(nums[i])
-            c.append(nums[j])
-            c.append(y)
-            c.sort()
-            jg.append(c)
-    def quchong(jg):
-        x=[];
-        for i in jg:
-            if i not in x:
-                x.append(i)
-        return x
-    jg=quchong(jg)
-    print(jg)
+            p1 = i + 1
+            p2 = len(nums) - 1
+            while p1 < p2:
+                if y == nums[p1]:
+                    p1 += 1
+                    continue
+                if z == nums[p2]:
+                    p2 -= 1
+                    continue
+                h = nums[i] + nums[p1] + nums[p2]
+                if h == 0:
+                    xx = []
+                    xx.append(nums[i])
+                    x = nums[i]
+                    xx.append(nums[p1])
+                    y = nums[p1]
+                    xx.append(nums[p2])
+                    z = nums[p2]
+                    zz.append(xx[:])
+                    p1 += 1
+                elif h > 0:
+                    p2 -= 1
+                elif h < 0:
+                    p1 += 1
+        return zz
+
 def jinsan44():
     """
     给你一个长度为 n 的整数数组 nums 和 一个目标值 target。
@@ -1550,35 +1617,70 @@ def jinsan44():
     解释：与 target 最接近的和是 0（0 + 0 + 0 = 0）。
     """
     exec(input("格式：nums = 列表 ； target = 整数 ："),globals())
-    min=1000000;h=0;p=0
-    # a=list(itertools.combinations(range(len(nums)), 3))
-    def comb(nums):
-        a=[]
-        for i in range(len(nums)-1):
-            for j in range(i+1,len(nums)):
-                for k in range(j+1,len(nums)):
-                    z=[]
-                    z.append(i)
-                    z.append(j)
-                    z.append(k)
-                    z.sort()
-                    a.append(z)
-        def quchong(a):
-            x = [];
-            for i in a:
-                if i not in x:
-                    x.append(i)
-            return x
-        a=quchong(a)
-        return a
-    a=comb(nums)
-    for i in a:
-        x=i[0];y=i[1];z=i[2]
-        h=nums[x]+nums[y]+nums[z]
-        if abs(h-target)<min:
-            min=abs(h-target)
-            p=h
-    print(p)
+    def one(nums,target):
+        min=1000000;h=0;p=0
+        # a=list(itertools.combinations(range(len(nums)), 3))
+        def comb(nums):
+            a=[]
+            for i in range(len(nums)-1):
+                for j in range(i+1,len(nums)):
+                    for k in range(j+1,len(nums)):
+                        z=[]
+                        z.append(i)
+                        z.append(j)
+                        z.append(k)
+                        z.sort()
+                        a.append(z)
+            def quchong(a):
+                x = [];
+                for i in a:
+                    if i not in x:
+                        x.append(i)
+                return x
+            a=quchong(a)
+            return a
+        a=comb(nums)
+        for i in a:
+            x=i[0];y=i[1];z=i[2]
+            h=nums[x]+nums[y]+nums[z]
+            if abs(h-target)<min:
+                min=abs(h-target)
+                p=h
+        return p
+    def two(nums,target):
+        nums.sort()
+        x = "";
+        zz = mn = 99999999999
+        for i in range(len(nums) - 2):
+            y = ""
+            z = ""
+            if x == nums[i]:
+                continue
+            p1 = i + 1
+            p2 = len(nums) - 1
+            while p1 < p2:
+                if y == nums[p1]:
+                    p1 += 1
+                    continue
+                if z == nums[p2]:
+                    p2 -= 1
+                    continue
+                x = nums[i]
+                h = nums[i] + nums[p1] + nums[p2]
+                if h == target:
+                    return h
+                if abs(h - target) < mn:
+                    zz = h
+                    mn = abs(h - target)
+                if h > target:
+                    z = nums[p2];
+                    p2 -= 1
+                elif h < target:
+                    y = nums[p1];
+                    p1 += 1
+        return zz
+    print(one(nums,target))
+    print(two(nums,target))
 def bohao45():
     """
     给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
@@ -1643,43 +1745,84 @@ def sihe46():
     输出：[[2,2,2,2]]
     """
     exec(input('格式：nums = 数组; target = 数  :'),globals())
-    if len(nums)<4:
-        print('error')
-        return
-    def co(nums):
-        a=[]
-        for i in range(len(nums)-1):
-            for j in range(i+1,len(nums)):
-                for k in range(j+1,len(nums)):
-                    for l in range(k+1,len(nums)):
-                        z=[]
-                        z.append(i)
-                        z.append(j)
-                        z.append(k)
-                        z.append(l)
-                        z.sort()
-                        a.append(z[:])
-        return a
-    a=co(nums)
-    jg=[]
-    for i in a:
-        x=0
-        li=[]
-        for j in i:
-            x+=nums[j]
-        if x==target:
+    def one(nums,target):
+        if len(nums)<4:
+            print('error')
+            return
+        def co(nums):
+            a=[]
+            for i in range(len(nums)-1):
+                for j in range(i+1,len(nums)):
+                    for k in range(j+1,len(nums)):
+                        for l in range(k+1,len(nums)):
+                            z=[]
+                            z.append(i)
+                            z.append(j)
+                            z.append(k)
+                            z.append(l)
+                            z.sort()
+                            a.append(z[:])
+            return a
+        a=co(nums)
+        jg=[]
+        for i in a:
+            x=0
+            li=[]
             for j in i:
-                li.append(nums[j])
-            li.sort()
-            jg.append(li[:])
-    def chong(j):
-        fj=[]
-        for i in j:
-            if i not in fj:
-                fj.append(i)
-        return fj
-    j=chong(jg)
-    print(j)
+                x+=nums[j]
+            if x==target:
+                for j in i:
+                    li.append(nums[j])
+                li.sort()
+                jg.append(li[:])
+        def chong(j):
+            fj=[]
+            for i in j:
+                if i not in fj:
+                    fj.append(i)
+            return fj
+        j=chong(jg)
+        return j
+    def two(nums,target):
+        nums.sort()
+        zz = []
+        qp = ""
+        for i in range(len(nums) - 3):
+            if qp == nums[i]:
+                continue
+            x = ""
+            for j in range(i + 1, len(nums) - 2):
+                y = ""
+                z = ""
+                if x == nums[j]:
+                    continue
+                p1 = j + 1
+                p2 = len(nums) - 1
+                while p1 < p2:
+                    if y == nums[p1]:
+                        p1 += 1
+                        continue
+                    if z == nums[p2]:
+                        p2 -= 1
+                        continue
+                    h = nums[i] + nums[j] + nums[p1] + nums[p2]
+                    if h == target:
+                        xx = []
+                        xx.append(nums[i])
+                        qp = nums[i]
+                        xx.append(nums[j])
+                        x = nums[j]
+                        xx.append(nums[p1])
+                        y = nums[p1]
+                        xx.append(nums[p2])
+                        z = nums[p2]
+                        zz.append(xx[:])
+                        p1 += 1
+                    elif h > target:
+                        p2 -= 1
+                    elif h < target:
+                        p1 += 1
+        return zz
 def shengkuo47():
     """
     数字 n 代表生成括号的对数，
@@ -1880,31 +2023,23 @@ def zonghe51():     #回溯
     """
     nu=eval(input())
     ta=int(input())
-    nuu=nu[:]
-    for i in nuu:
-        if i>ta:
-            nu.remove(i)
+    nu = [x for x in nu if x <= ta]
     nu.sort()
-    z=[]
-    def huisu(s,t,p):
-        if t==0:
+    z = []
+    def huisu(s, t, p):
+        if t == 0:
             z.append(p[:])
             return
-        for i in range(s,len(nu)):
-            if nu[i]>t:
+        for i in range(s, len(nu)):
+            if i > s and nu[i] == nu[i - 1]:
+                continue
+            if nu[i] > t:
                 break
             p.append(nu[i])
-            huisu(i+1,t-nu[i],p)
+            huisu(i + 1, t - nu[i], p)
             p.pop()
-    huisu(0,ta,[])
-    def chong(z):
-        x=[]
-        for i in z:
-            if i not in x:
-                x.append(i)
-        return x
-    z=chong(z)
-    print(z)
+    huisu(0, ta, [])
+    return z
 def queshi52():
     """
     给你一个未排序的整数数组 nums ，请你找出其中没有出现的最小的正整数。
@@ -2019,7 +2154,7 @@ def xuanzhuan55():
     l=math.floor(len(m)/2)
     for i in range(l):
         for j in range(i,len(m)-1-i):
-            m[i][i+j],m[i+j][-1-i],m[-1-i][-1-i-j],m[-1-i-j][0+i]=m[-1-i-j][0+i],m[i][i+j],m[i+j][-1-i],m[-1-i][-1-i-j]
+            m[i][j],m[j][-1-i],m[-1-i][-1-j],m[-1-j][i]=m[-1-j][i],m[i][j],m[j][-1-i],m[-1-i][-1-j]
     print(m)
 def yiwei56():
     """
@@ -2096,28 +2231,27 @@ def luoxuan58():
     nums=eval(input())
     zz=[]
     while True:
-        if not nums:
+        if not nums or not nums[0]:
             break
         for j in nums[0]:
             zz.append(j)
         del nums[0]
-        if not nums:
+        if not nums or not nums[0]:
             break
         for j in range(len(nums)):
             zz.append(nums[j][-1])
             del nums[j][-1]
-        if not nums:
+        if not nums or not nums[0]:
             break
         l=len(nums[-1])
         for j in range(l-1,-1,-1):
             zz.append(nums[-1][j])
         del nums[-1]
-        if not nums:
+        if not nums or not nums[0]:
             break
         for j in range(len(nums)-1,-1,-1):
             zz.append(nums[j][0])
             del nums[j][0]
-        print(nums)
     print(zz)
 def tiaoyue59():
     """
@@ -2334,21 +2468,58 @@ def yidong63():
     输出：1
     """
     num=eval(input())
-    x=len(num)
-    y=len(num[0])
-    for i in range(x):
-        if 1 not in num[i]:
-            continue
+    x = len(num)
+    y = len(num[0])
+    def one(num,x,y):
+        z1 = math.comb(x + y - 2, x - 1)
+        m = n = 0
+        for i in range(x):
+            if 1 not in num[i]:
+                continue
+            else:
+                for j in range(y):
+                    if num[i][j] == 1:
+                        m = i
+                        n = j
+                        z2 = math.comb(m + n, m)
+                        z3 = math.comb(x - 1 - m + y - 1 - n, x - 1 - m)
+                        z1 = z1 - z2 * z3
+        return z1
+    def two(num,x,y):
+        zz=[[0 for __ in range(y)] for _ in range(x)]
+        for i in range(x):
+            if 1 not in num[i]:
+                continue
+            else:
+                for j in range(y):
+                    if num[i][j]==1:
+                        zz[i][j]=-1
+        for i in range(y):
+            if zz[0][i]!=-1:
+                zz[0][i]=1
+            else:
+                break
+        for i in range(x):
+            if zz[i][0]!=-1:
+                zz[i][0]=1
+            else:
+                break
+        for i in range(1,x):
+            for j in range(1,y):
+                if zz[i][j]==-1:
+                    continue
+                if zz[i-1][j]==-1 and zz[i][j-1]==-1:
+                    zz[i][j]=-1
+                elif zz[i-1][j]==-1:
+                    zz[i][j]=zz[i][j-1]
+                elif zz[i][j-1]==-1:
+                    zz[i][j]=zz[i-1][j]
+                else:
+                    zz[i][j]=zz[i-1][j]+zz[i][j-1]
+        if zz[-1][-1]==-1:
+            return 0
         else:
-            for j in range(y):
-                if num[i][j]==1:
-                    m=i
-                    n=j
-                    break
-    z1=math.comb(x+y-2,x-1)
-    z2=math.comb(m+n,m)
-    z3=math.comb(x-1-m+y-1-n,x-1-m)
-    print(z1-z2*z3)
+            return zz[-1][-1]
 def bianji64():         #动态规划
     """
     输入两个单词 word1 和 word2， 输出将 word1 转换成 word2 所使用的最少操作数  。
