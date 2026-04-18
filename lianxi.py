@@ -3009,5 +3009,55 @@ def gupiao73():
     if b == 1:
         z += pr[-1] - r
     print(z)
+def weirao():
+    """
+    给你一个 m x n 的矩阵 board ，由若干字符 'X' 和 'O' 组成，捕获 所有 被围绕的区域：
+    连接：一个单元格与水平或垂直方向上相邻的单元格连接。
+    区域：连接所有 'O' 的单元格来形成一个区域。
+    围绕：如果一个区域中的所有 'O' 单元格都不在棋盘的边缘，则该区域被包围。这样的区域 完全 被 'X' 单元格包围。
+    将被X围绕的O替换为X
+
+    示例 1：
+    输入：board = [['X','X','X','X'],['X','O','O','X'],['X','X','O','X'],['X','O','X','X']]
+    输出：[['X','X','X','X'],['X','X','X','X'],['X','X','X','X'],['X','O','X','X']]
+
+    示例 2：
+    输入：board = [['X']]
+    输出：[['X']]
+    """
+    board = eval(input())
+
+    if not board or not board[0]:
+        return
+
+    m, n = len(board), len(board[0])
+
+    # 标记边界的 O
+    def dfs(i, j):
+        if i < 0 or i >= m or j < 0 or j >= n or board[i][j] != 'O':
+            return
+        board[i][j] = 'A'  # 标记为特殊字符 A，表示与边界相连
+        dfs(i + 1, j)
+        dfs(i - 1, j)
+        dfs(i, j + 1)
+        dfs(i, j - 1)
+
+    # 遍历边界，标记所有与边界相连的 O
+    for i in range(m):
+        dfs(i, 0)
+        dfs(i, n - 1)
+    for j in range(n):
+        dfs(0, j)
+        dfs(m - 1, j)
+
+    # 将标记还原并替换被包围的 O
+    for i in range(m):
+        for j in range(n):
+            if board[i][j] == 'O':
+                board[i][j] = 'X'
+            elif board[i][j] == 'A':
+                board[i][j] = 'O'
+
+    print(board)
 if __name__=='__main__':
-    lujing72()
+    weirao74()
