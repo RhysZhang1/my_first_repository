@@ -2211,15 +2211,52 @@ def zishu57():
     输出：23
     """
     nums=eval(input())
-    h=0;max=-99999
-    for i in range(len(nums)):
-        for j in range(i+1,len(nums)+1):
-            for k in range(i,j):
-                h+=nums[k]
-            if h>max:
-                max=h
-            h=0
-    print(max)
+    def one(nums):
+        h=0;mx=-99999
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)+1):
+                for k in range(i,j):
+                    h+=nums[k]
+                if h>mx:
+                    mx=h
+                h=0
+        return mx
+    def two(nums):
+        l=len(nums)
+        a=[0 for _ in range(l+1)]
+        for i in range(l):
+            a[i+1]=a[i]+nums[i]
+        mx=-99999
+        for i in range(l):
+            for j in range(i+1,l+1):
+                z=a[j]-a[i]
+                mx=max(mx,z)
+        return mx
+    def three(nums):
+        def h(l,r):
+            if l==r:
+                return nums[l]
+            md=(l+r)//2
+            lm=h(l,md);rm=h(md+1,r)
+            c=0;lc=-999999
+            for i in range(md,l-1,-1):
+                c+=nums[i]
+                lc=max(lc,c)
+            c=0;rc=-999999
+            for i in range(md+1,r+1):
+                c+=nums[i]
+                rc=max(rc,c)
+            cm=lc+rc
+            return max(lm,rm,cm)
+        return h(0,len(nums)-1)
+    def four(nums):
+        c = nums[0];
+        mx = nums[0]
+        for i in range(1, len(nums)):
+            c = max(nums[i], c + nums[i])
+            mx = max(mx, c)
+        return mx
+    print(mx)
 def luoxuan58():
     """
     给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。
