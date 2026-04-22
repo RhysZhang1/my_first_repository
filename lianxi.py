@@ -3200,5 +3200,161 @@ def yici76():
             a=(a ^ i) & ~b
             b=(b ^ i) & ~a
         return a                      #O(n);O(1)
+def chafen77():
+    """
+    给你一个字符串 s 和一个字符串列表 wordDict 作为字典。如果可以利用字典中出现的一个或多个单词拼接出 s 则返回 true。
+    注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
+
+    示例 1：
+    输入: s = "leetcode", wordDict = ["leet", "code"]
+    输出: true
+    解释: 返回 true 因为 "leetcode" 可以由 "leet" 和 "code" 拼接成。
+
+    示例 2：
+    输入: s = "applepenapple", wordDict = ["apple", "pen"]
+    输出: true
+    解释: 返回 true 因为 "applepenapple" 可以由 "apple" "pen" "apple" 拼接成。
+         注意，你可以重复使用字典中的单词。
+
+    示例 3：
+    输入: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
+    输出: false
+    """
+    class Trie:
+        def __init__(self):
+            self.chi = {}
+            self.is_w = False
+
+    class Solution:
+        def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+            wd = wordDict
+            # l=0
+            # for i in range(1,len(s)+1):
+            #     if s[l:i] in wd:
+            #         l=i
+            #         continue
+            #     if i==len(s):
+            #         return False
+            # return True            #贪心：False
+
+            # w=set(wd)
+            # l=len(s)
+            # dp=[False for _ in range(l+1)]
+            # dp[0]=True
+            # for i in range(1,l+1):
+            #     for j in range(i):
+            #         if dp[j] and s[j:i] in w:
+            #             dp[i]=True
+            #             break
+            # return dp[l]        #动态规划：True:O(n^2)O(n)
+
+            # w=set(wd)
+            # m={}
+            # def dg(st):
+            #     if st==len(s):
+            #         return True
+            #     if st in m:
+            #         return m[st]
+            #     for i in range(st+1,len(s)+1):
+            #         if s[st:i] in w and dg(i):
+            #             m[st]=True
+            #             return True
+            #     m[st]=False
+            #     return False
+            # return dg(0)      #递归：True：O(n^2)O(n)
+
+            # w=set(wd)
+            # l=len(s)
+            # v=[False for i in range(l+1)]
+            # q=deque([0])      #双端队列，比用pop(0)更快
+            # while q:
+            #     st=q.popleft()
+            #     if st==l:
+            #         return True
+            #     if v[st]:
+            #         continue
+            #     v[st]=True
+            #     for i in range(st+1,l+1):
+            #         if not v[i] and s[st:i] in w:
+            #             q.append(i)
+            # return False      #广搜:True:O(n^2)O(n)
+
+            r = Trie()
+            for i in wd:
+                n = r
+                for j in i:
+                    if j not in n.chi:
+                        n.chi[j] = Trie()
+                    n = n.chi[j]
+                n.is_w = True
+            l = len(s)
+            dp = [False for i in range(l + 1)]
+            dp[0] = True
+            for i in range(l):
+                if not dp[i]:
+                    continue
+                n = r
+                for j in range(i, l):
+                    c = s[j]
+                    if c not in n.chi:
+                        break
+                    n = n.chi[c]
+                    if n.is_w:
+                        dp[j + 1] = True
+            return dp[l]  # 字典树:True:O(n^2)O(n)
+def bolan78():
+    """
+    给你一个字符串数组 tokens ，表示一个根据 逆波兰表示法 表示的算术表达式。
+    请你计算该表达式。返回一个表示表达式值的整数。
+    注意：
+    有效的算符为 '+'、'-'、'*' 和 '/' 。
+    每个操作数（运算对象）都可以是一个整数或者另一个表达式。
+    两个整数之间的除法总是 向零截断 。
+    表达式中不含除零运算。
+    输入是一个根据逆波兰表示法表示的算术表达式。
+    答案及所有中间计算结果可以用 32 位 整数表示。
+
+    示例 1：
+    输入：tokens = ["2","1","+","3","*"]
+    输出：9
+    解释：该算式转化为常见的中缀算术表达式为：((2 + 1) * 3) = 9
+
+    示例 2：
+    输入：tokens = ["4","13","5","/","+"]
+    输出：6
+    解释：该算式转化为常见的中缀算术表达式为：(4 + (13 / 5)) = 6
+
+    示例 3：
+    输入：tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
+    输出：22
+    解释：该算式转化为常见的中缀算术表达式为：
+      ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
+    = ((10 * (6 / (12 * -11))) + 17) + 5
+    = ((10 * (6 / -132)) + 17) + 5
+    = ((10 * 0) + 17) + 5
+    = (0 + 17) + 5
+    = 17 + 5
+    = 22
+    """
+    def evalRPN(self, tokens: List[str]) -> int:
+        z=[]
+        while tokens:
+            try:
+                x=int(tokens[0])
+            except(ValueError):
+                if tokens[0]=='/':
+                    tokens[0]='//'
+                s=z[-2]+tokens[0]+z[-1];zz=z[-2]+'/'+z[-1]
+                del z[-1]
+                del z[-1]
+                x=eval(s)
+                if tokens[0]=='//' and x<0 and x != eval(zz):
+                    x+=1
+                z.append(str(x))
+                del tokens[0]
+            else:
+                z.append(tokens[0])
+                del tokens[0]
+        return int(z[0])
 if __name__=='__main__':
     jiayou75()
