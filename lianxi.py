@@ -3394,5 +3394,66 @@ def chengji79():
                 mn = min(nums[i], mn * nums[i])
                 r = max(r, mx)
             return r
+        def three(nums):
+            p = 1;
+            r = nums[0]
+            for i in nums:
+                p *= i
+                r = max(r, p)
+                if i == 0:
+                    p = 1
+            p = 1
+            for i in reversed(nums):
+                p *= i
+                r = max(r, p)
+                if i == 0:
+                    p = 1
+            return r
+def banben80():
+    """
+    给你两个 版本号字符串 version1 和 version2 ，请你比较它们。版本号由被点 '.' 分开的修订号组成。
+    修订号的值 是它 转换为整数 并忽略前导零。
+    比较版本号时，请按 从左到右的顺序 依次比较它们的修订号。如果其中一个版本字符串的修订号较少，则将缺失的修订号视为 0。
+    返回规则如下：
+    如果 version1 < version2 返回 -1，
+    如果 version1 > version2 返回 1，
+    除此之外返回 0。
+
+    示例 1：
+    输入：version1 = "1.2", version2 = "1.10"
+    输出：-1
+    解释：
+    version1 的第二个修订号为 "2"，version2 的第二个修订号为 "10"：2 < 10，所以 version1 < version2。
+
+    示例 2：
+    输入：version1 = "1.01", version2 = "1.001"
+    输出：0
+    解释：
+    忽略前导零，"01" 和 "001" 都代表相同的整数 "1"。
+
+    示例 3：
+    输入：version1 = "1.0", version2 = "1.0.0.0"
+    输出：0
+    解释：
+    version1 有更少的修订号，每个缺失的修订号按 "0" 处理。
+    """
+    def compareVersion(self, version1: str, version2: str) -> int:
+        l1=list(version1.split('.'))
+        l2=list(version2.split('.'))
+        if len(l1)>len(l2):
+            l2=l2+['0' for i in range(len(l1)-len(l2))]
+        elif len(l1)<len(l2):
+            l1=l1+['0' for i in range(len(l2)-len(l1))]
+        n=len(l1)
+        for i in range(n):
+            x=int(l1[i])
+            y=int(l2[i])
+            if x==y:
+                continue
+            elif x>y:
+                return 1
+            elif x<y:
+                return -1
+        return 0
 if __name__=='__main__':
     jiayou75()
