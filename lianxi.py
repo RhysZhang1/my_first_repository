@@ -3736,5 +3736,124 @@ def jieshe85():
                 p1 = c
             return p1
         return four(nums)
+def daoyu86():
+    """
+    给你一个由 '1'（陆地）和 '0'（水）组成的的二维网格，请你计算网格中岛屿的数量。
+    岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。
+    此外，你可以假设该网格的四条边均被水包围。
+
+    示例 1：
+    输入：grid = [
+      ['1','1','1','1','0'],
+      ['1','1','0','1','0'],
+      ['1','1','0','0','0'],
+      ['0','0','0','0','0']
+    ]
+    输出：1
+
+    示例 2：
+    输入：grid = [
+      ['1','1','0','0','0'],
+      ['1','1','0','0','0'],
+      ['0','0','1','0','0'],
+      ['0','0','0','1','1']
+    ]
+    输出：3
+    """
+    def numIslands(grid: List[List[str]]) -> int:
+        # l=len(grid);n=len(grid[0])
+        # i=0;z=0
+        # while i<l:
+        #     if '1' not in grid[i]:
+        #         i+=1
+        #         continue
+        #     while True:
+        #         if '1' not in grid[i]:
+        #             break
+        #         b=grid[i].index('1')
+        #         if 0<=b-1<n and grid[i][b-1]=='2':
+        #             pass
+        #         elif 0<=i-1<l and grid[i-1][b]=='2':
+        #             pass
+        #         else:
+        #             z+=1
+        #         grid[i][b]='2'
+        # return z
+
+        def one(grid):
+            l = len(grid);
+            n = len(grid[0]);
+            z = 0
+
+            def h(x, y):
+                grid[x][y] = '2'
+                if 0 <= x - 1 < l and grid[x - 1][y] == '1':
+                    h(x - 1, y)
+                if 0 <= x + 1 < l and grid[x + 1][y] == '1':
+                    h(x + 1, y)
+                if 0 <= y - 1 < n and grid[x][y - 1] == '1':
+                    h(x, y - 1)
+                if 0 <= y + 1 < n and grid[x][y + 1] == '1':
+                    h(x, y + 1)
+
+            i = 0
+            while i < l:
+                if '1' not in grid[i]:
+                    i += 1
+                    continue
+                while True:
+                    if '1' not in grid[i]:
+                        break
+                    b = grid[i].index('1');
+                    z += 1
+                    h(i, b)
+            return z
+
+        def two(grid):
+            l = len(grid);
+            n = len(grid[0])
+            z = 0
+
+            def h(xx, yy):
+                s = [(xx, yy)]
+                while s:
+                    x, y = s.pop()
+                    if x < 0 or y < 0 or x > l - 1 or y > n - 1 or grid[x][y] != '1':
+                        continue
+                    grid[x][y] = '2'
+                    s.append((x - 1, y))
+                    s.append((x + 1, y))
+                    s.append((x, y - 1))
+                    s.append((x, y + 1))
+
+            for i in range(l):
+                for j in range(n):
+                    if grid[i][j] == '1':
+                        z += 1
+                        h(i, j)
+            return z
+
+        def three(grid):
+            l = len(grid);
+            n = len(grid[0])
+            z = 0
+            d = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            for i in range(l):
+                for j in range(n):
+                    if grid[i][j] == '1':
+                        z += 1
+                        grid[i][j] = '2'
+                        q = deque()
+                        q.append((i, j))
+                        while q:
+                            x, y = q.popleft()
+                            for xx, yy in d:
+                                xxx, yyy = x + xx, y + yy
+                                if 0 <= xxx < l and 0 <= yyy < n and grid[xxx][yyy] == '1':
+                                    grid[xxx][yyy] = '2'
+                                    q.append((xxx, yyy))
+            return z
+
+        return three(grid)
 if __name__=='__main__':
     zuida84()
