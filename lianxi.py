@@ -3872,5 +3872,76 @@ def anweiyu87():
     输入：left = 1, right = 2147483647
     输出：0
     """
+    def rangeBitwiseAnd(left: int, right: int) -> int:
+        def one(left, right):
+            z = left
+            for i in range(left + 1, right + 1):
+                z &= i
+            return z
+
+        def two(left, right):
+            while left < right:
+                right &= right - 1
+            return right
+
+        def three(left, right):
+            h = 0
+            while left < right:
+                left >>= 1
+                right >>= 1
+                h += 1
+            return left << h
+
+        return three(left, right)
+def sushu88():
+    """
+    给定整数 n ，返回 所有小于非负整数 n 的质数的数量 。
+
+    示例 1：
+
+    输入：n = 10
+    输出：4
+    解释：小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。
+    示例 2：
+
+    输入：n = 0
+    输出：0
+    示例 3：
+
+    输入：n = 1
+    输出：0
+    """
+    def countPrimes(n: int) -> int:
+        def one(n):
+            if n==0 or n==1:
+                return 0
+            n-=1
+            b=[True]*(n+1)
+            b[0]=b[1]=False
+            for i in range(2,int(n**0.5)+1):
+                if b[i]:
+                    for j in range(i**2,n+1,i):
+                        b[j]=False
+            s=0
+            for i in range(len(b)):
+                if b[i]:
+                    s+=1
+            return s
+        def two(n):
+            if n==0 or n==1:
+                return 0
+            b=[False]*(n)
+            z=[]
+            for i in range(2,n):
+                if not b[i]:
+                    z.append(i)
+                j=0
+                while j<len(z) and i*z[j]<n:
+                    b[i*z[j]]=True
+                    if not i%z[j]:
+                        break
+                    j+=1
+            return len(z)
+        return two(n)
 if __name__=='__main__':
     zuida84()
