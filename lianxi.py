@@ -4145,5 +4145,104 @@ def tiaoyu91():
     对于 i = 2：跳到 j = 1，因为 nums[j] = 3 大于 nums[2] = 1。
     因此，ans = [3, 3, 3]。
     """
+    def maxValue(nums: List[int]) -> List[int]:
+        def one(nums):
+            z=[];xz=[]
+            while nums:
+                b=nums.index(min(nums))+1
+                nnu=nums[:b];nums=nums[b:]
+                xz=xz+nnu
+                x=[max(xz)]*len(nnu)
+                z=z+x
+            return z
+        def two(nums):
+            ch=sorted(nums,reverse=True)
+            z=nums[:]
+            for i in range(len(nums)):
+                if nums[i]==max(nums):
+                    continue
+                for j in ch:
+                    x=nums.index(j)
+                    if min(nums[x:])<=nums[i]:
+                        z[i]=j
+                        break
+            return z
+        def three(nums):
+            ch=sorted(nums,reverse=True)
+            z=['_' for i in range(len(nums))]
+            p=0
+            while '_' in z and p<len(nums):
+                x=nums.index(ch[p])
+                if z[x]=='_':
+                    z[x]=ch[p]
+                t=min(nums[x:])
+                for i in range(len(nums[x+1:])):
+                    if z[x+1+i]=='_':
+                        z[x+1+i]=ch[p]
+                for i in range(len(nums[:x+1])):
+                    if max(nums[:i+1])>t and z[i]=='_':
+                        z[i]=ch[p]
+                p+=1
+            return z
+        def four(nums):
+            n=len(nums)
+            z=[0 for i in range(n)]
+            pr=[(0,0)]*n
+            p=(-math.inf,-1)
+            for i,j in enumerate(nums):
+                if j>p[0]:
+                    p=(j,i)
+                pr[i]=p
+            def pro(r,ri,ra):
+                pm,pi=pr[r]
+                cm=pm if pm<=ri else ra
+                nrm=min(pm,ri)
+                for i in range(pi,r+1):
+                    z[i]=cm
+                    nrm=min(nrm,nums[i])
+                if pi==0:
+                    return
+                pro(pi-1,nrm,cm)
+            pro(n-1,math.inf,0)
+            return z
+        def five(nums):
+            n=len(nums)
+            pr=[0]*n
+            pr[0]=nums[0]
+            for i in range(1,n):
+                pr[i]=max(pr[i-1],nums[i])
+            su=[0]*n
+            su[-1]=nums[-1]
+            for i in range(n-2,-1,-1):
+                su[i]=min(su[i+1],nums[i])
+            an=[0]*n
+            le=0
+            while le<n:
+                ri=le
+                while ri<n-1 and pr[ri]>su[ri+1]:
+                    ri+=1
+                sm=max(nums[le:ri+1])
+                for i in range(le,ri+1):
+                    an[i]=sm
+                le=ri+1
+            return an
+        def six(nums):
+            n=len(nums)
+            z=[0 for i in range(n)]
+            st=[]
+            for i in range(n):
+                cv=nums[i]
+                cl=i
+                cr=i
+                while st and st[-1][0]>nums[i]:
+                    tv,tl,tr=st.pop()
+                    cv=max(cv,tv)
+                    cl=tl
+                st.append((cv,cl,cr))
+            for i in range(len(st)):
+                for j in range(st[i][1],st[i][2]+1):
+                    z[j]=st[i][0]
+            return z
+        return six(nums)
 if __name__=='__main__':
     zuida84()
