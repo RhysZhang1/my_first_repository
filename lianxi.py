@@ -3943,5 +3943,207 @@ def sushu88():
                     j+=1
             return len(z)
         return two(n)
+def zhuanxiang89():
+    """
+    给你一个 m x n 的字符矩阵 boxGrid ，它表示一个箱子的侧视图。箱子的每一个格子可能为：
+    '#' 表示石头
+    '*' 表示固定的障碍物
+    '.' 表示空位置
+    这个箱子被 顺时针旋转 90 度 ，由于重力原因，部分石头的位置会发生改变。
+    每个石头会垂直掉落，直到它遇到障碍物，另一个石头或者箱子的底部。
+    重力 不会 影响障碍物的位置，同时箱子旋转不会产生惯性 ，也就是说石头的水平位置不会发生改变。
+    题目保证初始时 boxGrid 中的石头要么在一个障碍物上，要么在另一个石头上，要么在箱子的底部。
+    请你返回一个 n x m 的矩阵，表示按照上述旋转后，箱子内的结果。
+
+    示例 1：
+    输入：box = [["#",".","#"]]
+    输出：[["."],
+          ["#"],
+          ["#"]]
+
+    示例 2：
+    输入：box = [["#",".","*","."],
+                ["#","#","*","."]]
+    输出：[["#","."],
+          ["#","#"],
+          ["*","*"],
+          [".","."]]
+
+    示例 3：
+    输入：box = [["#","#","*",".","*","."],
+                ["#","#","#","*",".","."],
+                ["#","#","#",".","#","."]]
+    输出：[[".","#","#"],
+          [".","#","#"],
+          ["#","#","*"],
+          ["#","*","."],
+          ["#",".","*"],
+          ["#",".","."]]
+    """
+    def rotateTheBox(boxGrid: List[List[str]]) -> List[List[str]]:
+        def one(boxGrid):
+            for i in range(len(boxGrid)):
+                if "*" in boxGrid[i]:
+                    b=boxGrid[i].index("*")
+                else:
+                    b=len(boxGrid[i])
+                x=0
+                for j in range(b-1,-1,-1):
+                    if boxGrid[i][j]=='.':
+                        continue
+                    x+=1
+                for j in range(b-1,-1,-1):
+                    if x>0:
+                        boxGrid[i][j]='#'
+                        x-=1
+                    else:
+                        boxGrid[i][j]='.'
+            return [list(i) for i in zip(*boxGrid[::-1])]
+        def two(boxGrid):
+            for i in range(len(boxGrid)):
+                j=len(boxGrid[i])-1
+                b=len(boxGrid[i])
+                while j>=0:
+                    if boxGrid[i][j]==".":
+                        j-=1
+                        continue
+                    if boxGrid[i][j]=="*":
+                        b=j
+                        j-=1
+                        continue
+                    if boxGrid[i][j]=="#":
+                        for k in range(b-j-1):
+                            boxGrid[i][j+k],boxGrid[i][j+k+1]=boxGrid[i][j+k+1],boxGrid[i][j+k]
+                        j-=1
+                        continue
+            return [list(i) for i in zip(*boxGrid[::-1])]
+        def three(boxGrid):
+            for i in boxGrid:
+                w=len(i)-1
+                for j in range(len(i)-1,-1,-1):
+                    if i[j]=='*':w=j-1
+                    elif i[j]=='#':
+                        i[w],i[j]=i[j],i[w]
+                        w-=1
+            return [list(i) for i in zip(*boxGrid[::-1])]
+        def four(boxGrid):
+            for i,j in enumerate(boxGrid):
+                s=''.join(j)
+                p=s.split('*')
+                n=['.'*i.count('.')+'#'*i.count('#') for i in p]
+                boxGrid[i]=list('*'.join(n))
+            return [list(i) for i in zip(*boxGrid[::-1])]
+        return four(boxGrid)
+def kebiao90():
+    """
+    你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。
+    在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，
+    其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程  bi 。
+    例如，先修课程对 [0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。
+    请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。
+
+    示例 1：
+    输入：numCourses = 2, prerequisites = [[1,0]]
+    输出：true
+    解释：总共有 2 门课程。学习课程 1 之前，你需要完成课程 0 。这是可能的。
+
+    示例 2：
+    输入：numCourses = 2, prerequisites = [[1,0],[0,1]]
+    输出：false
+    解释：总共有 2 门课程。学习课程 1 之前，你需要先完成课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。
+    """
+    def canFinish(numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # n=numCourses;p=prerequisites
+        # if n<2 or not p:
+        #     return True
+        # z={}
+        # for i,j in p:
+        #     z[j]=i
+        # for i in z:
+        #     b=i;s=1;y=[]
+        #     be=i
+        #     while True:
+        #         y.append(b)
+        #         try:
+        #             b=z[b]
+        #         except(KeyError):
+        #             return False
+        #         s+=1
+        #         try:
+        #             xx=z[b]
+        #         except(KeyError):
+        #             yy=1
+        #         else:
+        #             yy=0
+        #         if s==n and yy:
+        #             return True
+        #         if b in y:
+        #             break
+        # return False
+
+        def one(n,p):
+            g=[[] for _ in range(n)]
+            ind=[0]*n
+            for a,b in p:
+                g[b].append(a)
+                ind[a]+=1
+            q=deque([i for i in range(n) if ind[i]==0])
+            fd=0
+            while q:
+                c=q.popleft()
+                fd+=1
+                for j in g[c]:
+                    ind[j]-=1
+                    if ind[j]==0:
+                        q.append(j)
+            return fd==n
+        def two(n,p):
+            g=[[] for _ in range(n)]
+            for a,b in p:
+                g[b].append(a)
+            st=[0]*n
+            def dfs(c):
+                if st[c]==1:
+                    return False
+                if st[c]==2:
+                    return True
+                st[c]=1
+                for i in g[c]:
+                    if not dfs(i):
+                        return False
+                st[c]=2
+                return True
+            for i in range(n):
+                if not dfs(i):
+                    return False
+            return True
+        return two(numCourses,prerequisites)
+def tiaoyu91():
+    """
+    给你一个整数数组 nums。
+    从任意下标 i 出发，你可以根据以下规则跳跃到另一个下标 j：
+    仅当 nums[j] < nums[i] 时，才允许跳跃到下标 j，其中 j > i。
+    仅当 nums[j] > nums[i] 时，才允许跳跃到下标 j，其中 j < i。
+    对于每个下标 i，找出从 i 出发且可以跳跃 任意 次，能够到达 nums 中的 最大值 是多少。
+    返回一个数组 ans，其中 ans[i] 是从下标 i 出发可以到达的最大值。
+
+    示例 1:
+    输入: nums = [2,1,3]
+    输出: [2,2,3]
+    解释:
+    对于 i = 0：没有跳跃方案可以获得更大的值。
+    对于 i = 1：跳到 j = 0，因为 nums[j] = 2 大于 nums[i]。
+    对于 i = 2：由于 nums[2] = 3 是 nums 中的最大值，没有跳跃方案可以获得更大的值。
+    因此，ans = [2, 2, 3]。
+
+    示例 2:
+    输入: nums = [2,3,1]
+    输出: [3,3,3]
+    解释:
+    对于 i = 0：向后跳到 j = 2，因为 nums[j] = 1 小于 nums[i] = 2，然后从 i = 2 跳到 j = 1，因为 nums[j] = 3 大于 nums[2]。
+    对于 i = 1：由于 nums[1] = 3 是 nums 中的最大值，没有跳跃方案可以获得更大的值。
+    对于 i = 2：跳到 j = 1，因为 nums[j] = 3 大于 nums[2] = 1。
+    因此，ans = [3, 3, 3]。
+    """
 if __name__=='__main__':
     zuida84()
