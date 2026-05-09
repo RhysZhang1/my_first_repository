@@ -4244,5 +4244,99 @@ def tiaoyu91():
                     z[j]=st[i][0]
             return z
         return six(nums)
+def tiaoyue92():
+    """
+    给你一个长度为 n 的整数数组 nums。
+    你从下标 0 开始，目标是到达下标 n - 1。
+    在任何下标 i 处，你可以执行以下操作之一：
+    移动到相邻格子：跳到下标 i + 1 或 i - 1，如果该下标在边界内。
+    质数传送：如果 nums[i] 是一个质数 p，你可以立即跳到任何满足 nums[j] % p == 0 的下标 j 处，且下标 j != i 。
+    返回到达下标 n - 1 所需的 最少 跳跃次数
+    质数 是一个大于 1 的自然数，只有两个因子，1 和它本身。
+
+    示例 1:
+    输入: nums = [1,2,4,6]
+    输出: 2
+    解释:
+    一个最优的跳跃序列是：
+    从下标 i = 0 开始。向相邻下标 1 跳一步。
+    在下标 i = 1，nums[1] = 2 是一个质数。因此，我们传送到索引 i = 3，因为 nums[3] = 6 可以被 2 整除。
+    因此，答案是 2。
+
+    示例 2:
+    输入: nums = [2,3,4,7,9]
+    输出: 2
+    解释:
+    一个最优的跳跃序列是：
+    从下标 i = 0 开始。向相邻下标 i = 1 跳一步。
+    在下标 i = 1，nums[1] = 3 是一个质数。因此，我们传送到下标 i = 4，因为 nums[4] = 9 可以被 3 整除。
+    因此，答案是 2。
+
+    示例 3:
+    输入: nums = [4,6,5,8]
+    输出: 3
+    解释:
+    由于无法进行传送，我们通过 0 → 1 → 2 → 3 移动。因此，答案是 3。
+    """
+    def ch(n):
+        n += 1
+        if n == 0 or n == 1:
+            return []
+        b = [False] * n
+        z = []
+        for i in range(2, n):
+            if not b[i]:
+                z.append(i)
+            j = 0
+            while j < len(z) and i * z[j] < n:
+                b[i * z[j]] = True
+                if not i % z[j]:
+                    break
+                j += 1
+        return set(z)
+
+    ch = ch(1000000)
+
+    def fe(n):
+        n += 1
+        f = [[] for _ in range(n)]
+        for i in range(2, n):
+            if not f[i]:
+                for j in range(i, n, i):
+                    f[j].append(i)
+        return f
+
+    f = fe(1000000)
+
+    class Solution:
+        def minJumps(self, nums: List[int]) -> int:
+            n = len(nums)
+            ed = defaultdict(list)
+            for i, j in enumerate(nums):
+                if j in ch:
+                    ed[j].append(i)
+            re = 0
+            se = [False] * n
+            se[-1] = True
+            q = [n - 1]
+            while True:
+                q2 = []
+                for i in q:
+                    if i == 0:
+                        return re
+                    if i > 0 and not se[i - 1]:
+                        se[i - 1] = True
+                        q2.append(i - 1)
+                    if i < n - 1 and not se[i + 1]:
+                        se[i + 1] = True
+                        q2.append(i + 1)
+                    for p in f[nums[i]]:
+                        for j in ed[p]:
+                            if not se[j]:
+                                se[j] = True
+                                q2.append(j)
+                        ed[p].clear()
+                q = q2
+                re += 1
 if __name__=='__main__':
     zuida84()
