@@ -4652,5 +4652,83 @@ def hubu98():
             if c<mn:
                 mn=c
         return mn
+def jisuan99():
+    """
+    给你一个字符串表达式 s ，请你实现一个基本计算器来计算并返回它的值
+    整数除法仅保留整数部分。
+    你可以假设给定的表达式总是有效的。所有中间结果将在 [-231, 231 - 1] 的范围内。
+    注意：不允许使用任何将字符串作为数学表达式计算的内置函数，比如 eval() 。
+
+    示例 1：
+    输入：s = "3+2*2"
+    输出：7
+
+    示例 2：
+    输入：s = " 3/2 "
+    输出：1
+
+    示例 3：
+    输入：s = " 3+5 / 2 "
+    输出：5
+    """
+    def calculate(self, s: str) -> int:
+        s = s.replace(' ', '')
+        while ('*' in s) or ('/' in s):
+            p=0;q=0
+            i=0
+            while i<len(s):
+                if s[i]=='*' or s[i]=='/':
+                    j=i+1
+                    while j<len(s):
+                        if s[j]=='+' or s[j]=='-' or s[j]=='*' or s[j]=='/':
+                            q=j
+                            break
+                        else:
+                            q=len(s)
+                        j+=1
+                    x=int(s[p:i])
+                    y=int(s[i+1:q])
+                    if s[i]=='*':
+                        h=str(x*y)
+                    if s[i]=='/':
+                        h=str(int(x/y))
+                    s=s[:p]+h+s[q:]
+                    i=0
+                elif s[i]=='+' or s[i]=='-':
+                    p=i+1
+                i+=1
+        b=0
+        i=0
+        while ('+' in s[i:]) or ('-' in s[i:]):
+            p=0
+            while i<len(s):
+                if s[i]=='+' or s[i]=='-':
+                    j=i+1
+                    while j<len(s):
+                        if s[j]=='+' or s[j]=='-':
+                            p=j
+                            break
+                        else:
+                            p=len(s)
+                        j+=1
+                    xx=s[:i]
+                    if not xx:
+                        i+=1
+                        b=1
+                        continue
+                    x=int(xx)
+                    y=int(s[i+1:p])
+                    if s[i]=='+':
+                        h=str(x+y)
+                    if s[i]=='-':
+                        h=str(x-y)
+                    s=h+s[p:]
+                    if b==0:
+                        i=0
+                    else:
+                        i=1
+                    continue
+                i+=1
+        return int(s)
 if __name__=='__main__':
     zuida84()
