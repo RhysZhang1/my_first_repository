@@ -4877,5 +4877,137 @@ def xianyi102():
             else:
                 b^=i
         return [a,b]
+def tiaoyue103():
+    """
+    给你一个整数数组 arr ，你一开始在数组的第一个元素处（下标为 0）。
+    每一步，你可以从下标 i 跳到下标 i + 1 、i - 1 或者 j ：
+    i + 1 需满足：i + 1 < arr.length
+    i - 1 需满足：i - 1 >= 0
+    j 需满足：arr[i] == arr[j] 且 i != j
+    请你返回到达数组最后一个元素的下标处所需的 最少操作次数 。
+    注意：任何时候你都不能跳到数组外面。
+
+    示例 1：
+    输入：arr = [100,-23,-23,404,100,23,23,23,3,404]
+    输出：3
+    解释：那你需要跳跃 3 次，下标依次为 0 --> 4 --> 3 --> 9 。下标 9 为数组的最后一个元素的下标
+
+    示例 2：
+    输入：arr = [7]
+    输出：0
+    解释：一开始就在最后一个元素处，所以你不需要跳跃。
+
+    示例 3：
+    输入：arr = [7,6,9,6,9,6,9,7]
+    输出：1
+    解释：你可以直接从下标 0 处跳到下标 7 处，也就是数组的最后一个元素处。
+    """
+    def minJumps(arr: List[int]) -> int:
+        # if len(arr)==1:
+        #     return 0
+        # v={}
+        # c=list(set(arr))
+        # for i in c:
+        #     v[i]=[j for j, val in enumerate(arr) if val == arr[arr.index(i)]]
+        # def cc(i,p):
+        #     if i not in v[arr[i]]:
+        #         return False
+        #     v[arr[i]].remove(i)
+        #     if i==len(arr)-1:
+        #         z.append(p)
+        #         return True
+        #     if i+1<len(arr) and cc(i+1,p+1):
+        #         return True
+        #     if i-1>=0 and cc(i-1,p+1):
+        #         return True
+        #     for j in v[arr[i]]:
+        #         if cc(j,p+1):
+        #             return True
+        #     return False
+
+        # z=[]
+        # cc(0,0)
+        # return min(z)
+
+        v=defaultdict(list)
+        for i,j in enumerate(arr):
+            v[j].append(i)
+        vd=[False]*len(arr)
+        vd[0]=True
+        q=deque([(0,0)])
+        while q:
+            i,s=q.popleft()
+            if i==len(arr)-1:
+                return s
+            for nt in (i-1,i+1):
+                if 0<=nt<len(arr) and not vd[nt]:
+                    vd[nt]=True
+                    q.append((nt,s+1))
+            val=arr[i]
+            if val in v:
+                for nt in v[val]:
+                    if not vd[nt]:
+                        vd[nt]=True
+                        q.append((nt,s+1))
+                del v[val]
+def xiaogong104():
+    """
+    给你两个整数数组 nums1 和 nums2 ，它们已经按非降序排序，请你返回两个数组的 最小公共整数 。
+    如果两个数组 nums1 和 nums2 没有公共整数，请你返回 -1 。
+    如果一个整数在两个数组中都 至少出现一次 ，那么这个整数是数组 nums1 和 nums2 公共 的。
+
+    示例 1：
+    输入：nums1 = [1,2,3], nums2 = [2,4]
+    输出：2
+    解释：两个数组的最小公共元素是 2 ，所以我们返回 2 。
+    示例 2：
+    输入：nums1 = [1,2,3,6], nums2 = [2,3,4,5]
+    输出：2
+    解释：两个数组中的公共元素是 2 和 3 ，2 是较小值，所以返回 2 。
+    """
+    def getCommon(nums1: List[int], nums2: List[int]) -> int:
+        def one(nums1,nums2):
+            p=0;q=0
+            while p<len(nums1) and q<len(nums2):
+                if nums1[p]==nums2[q]:
+                    return nums1[p]
+                if nums1[p]<nums2[q]:
+                    p+=1
+                    continue
+                if nums1[p]>nums2[q]:
+                    q+=1
+                    continue
+            return -1
+        return one(nums1,nums2)
+def qiangong105():
+    """
+    给你两个下标从 0 开始长度为 n 的整数排列 A 和 B 。
+    A 和 B 的 前缀公共数组 定义为数组 C ，其中 C[i] 是数组 A 和 B 到下标为 i 之前公共元素的数目。
+    请你返回 A 和 B 的 前缀公共数组 。
+    如果一个长度为 n 的数组包含 1 到 n 的元素恰好一次，我们称这个数组是一个长度为 n 的 排列 。
+
+    示例 1：
+    输入：A = [1,3,2,4], B = [3,1,2,4]
+    输出：[0,2,3,4]
+    解释：i = 0：没有公共元素，所以 C[0] = 0 。
+    i = 1：1 和 3 是两个数组的前缀公共元素，所以 C[1] = 2 。
+    i = 2：1，2 和 3 是两个数组的前缀公共元素，所以 C[2] = 3 。
+    i = 3：1，2，3 和 4 是两个数组的前缀公共元素，所以 C[3] = 4 。
+    示例 2：
+    输入：A = [2,3,1], B = [3,1,2]
+    输出：[0,1,3]
+    解释：i = 0：没有公共元素，所以 C[0] = 0 。
+    i = 1：只有 3 是公共元素，所以 C[1] = 1 。
+    i = 2：1，2 和 3 是两个数组的前缀公共元素，所以 C[2] = 3 。
+    """
+    def findThePrefixCommonArray(A: List[int], B: List[int]) -> List[int]:
+        n=len(A)
+        g=set()
+        C=[0 for i in range(n)]
+        for i in range(n):
+            g.add(A[i])
+            g.add(B[i])
+            C[i]=(i+1)*2-len(g)
+        return C
 if __name__=='__main__':
     zuida84()
