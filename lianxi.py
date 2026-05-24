@@ -5113,5 +5113,208 @@ def erfen107():
                 else:
                     right = mid - 1
         return -1
+def lunzhuan108():
+    """
+    给你一个数组 nums 。nums 的源数组中，所有元素与 nums 相同，但按非递减顺序排列。
+    如果 nums 能够由源数组轮转若干位置（包括 0 个位置）得到，则返回 true ；否则，返回 false 。
+    源数组中可能存在 重复项 。
+    注意：数组 A 在轮转 x 个位置后得到长度相同的数组 B ，使得对于每一个有效的下标 i，满足 B[i] == A[(i+x) % A.length]。
+
+    示例 1：
+    输入：nums = [3,4,5,1,2]
+    输出：true
+    解释：[1,2,3,4,5] 为有序的源数组。
+    可以轮转 x = 2 个位置，使新数组从值为 3 的元素开始：[3,4,5,1,2] 。
+
+    示例 2：
+    输入：nums = [2,1,3,4]
+    输出：false
+    解释：源数组无法经轮转得到 nums 。
+    示例 3：
+    输入：nums = [1,2,3]
+    输出：true
+    解释：[1,2,3] 为有序的源数组。
+    可以轮转 x = 0 个位置（即不轮转）得到 nums 。
+    """
+    def check(nums: List[int]) -> bool:
+        b=0
+        for i in range(len(nums)-1):
+            if nums[i+1]<nums[i]:
+                b+=1
+        if b>1:
+            return False
+        elif b==1:
+            if nums[-1]<=nums[0]:
+                return True
+            else:
+                return False
+        else:
+            return True
+def hzhishu109():
+    """
+    给你一个整数数组 citations ，其中 citations[i] 表示研究者的第 i 篇论文被引用的次数。计算并返回该研究者的 h 指数。
+    根据维基百科上 h 指数的定义：h 代表“高引用次数” ，
+    一名科研人员的 h 指数 是指他（她）至少发表了 h 篇论文，并且 至少 有 h 篇论文被引用次数大于等于 h 。
+    如果 h 有多种可能的值，h 指数 是其中最大的那个。
+
+    示例 1：
+    输入：citations = [3,0,6,1,5]
+    输出：3
+    解释：给定数组表示研究者总共有 5 篇论文，每篇论文相应的被引用了 3, 0, 6, 1, 5 次。
+         由于研究者有 3 篇论文每篇 至少 被引用了 3 次，其余两篇论文每篇被引用 不多于 3 次，所以她的 h 指数是 3。
+    示例 2：
+    输入：citations = [1,3,1]
+    输出：1
+    """
+    def hIndex(citations: List[int]) -> int:
+        citations.sort(reverse=True)
+        z=0
+        for i in range(len(citations)):
+            if i+1<=citations[i]:
+                z=i+1
+            else:
+                break
+        return z
+def pinghe110():
+    """
+    给你一个整数 n ，返回 和为 n 的完全平方数的最少数量 。
+    完全平方数 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。
+    例如，1、4、9 和 16 都是完全平方数，而 3 和 11 不是。
+
+    示例 1：
+    输入：n = 12
+    输出：3
+    解释：12 = 4 + 4 + 4
+    示例 2：
+    输入：n = 13
+    输出：2
+    解释：13 = 4 + 9
+    """
+    def numSquares(n: int) -> int:
+        def one(n):
+            b=0
+            while n>3:
+                x=math.isqrt(n)
+                n-=x*x
+                b+=1
+            return b+n
+        def two(n):
+            dp=[0]*(n+1)
+            for i in range(1,n+1):
+                dp[i]=i
+                j=1
+                while j*j<=i:
+                    dp[i]=min(dp[i],dp[i-j*j]+1)
+                    j+=1
+            return dp[n]
+        return two(n)
+def tiaoyue110():
+    """
+    给你一个整数数组 arr 和一个整数 d 。每一步你可以从下标 i 跳到：
+    i + x ，其中 i + x < arr.length 且 0 < x <= d 。
+    i - x ，其中 i - x >= 0 且 0 < x <= d 。
+    除此以外，你从下标 i 跳到下标 j 需要满足：arr[i] > arr[j] 且 arr[i] > arr[k] ，
+    其中下标 k 是所有 i 到 j 之间的数字（更正式的，min(i, j) < k < max(i, j)）。
+    你可以选择数组的任意下标开始跳跃。请你返回你 最多 可以访问多少个下标。
+    请注意，任何时刻你都不能跳到数组的外面。
+
+    示例 1：
+    输入：arr = [6,4,14,6,8,13,9,7,10,6,12], d = 2
+    输出：4
+    解释：你可以从下标 10 出发，然后如上图依次经过 10 --> 8 --> 6 --> 7 。
+    注意，如果你从下标 6 开始，你只能跳到下标 7 处。你不能跳到下标 5 处因为 13 > 9 。你也不能跳到下标 4 处，因为下标 5 在下标 4 和 6 之间且 13 > 9 。
+    类似的，你不能从下标 3 处跳到下标 2 或者下标 1 处。
+    示例 2：
+    输入：arr = [3,3,3,3,3], d = 3
+    输出：1
+    解释：你可以从任意下标处开始且你永远无法跳到任何其他坐标。
+    示例 3：
+    输入：arr = [7,6,5,4,3,2,1], d = 1
+    输出：7
+    解释：从下标 0 处开始，你可以按照数值从大到小，访问所有的下标。
+    示例 4：
+    输入：arr = [7,1,7,1,7,1], d = 2
+    输出：2
+    示例 5：
+    输入：arr = [66], d = 1
+    输出：1
+
+    提示：
+    1 <= arr.length <= 1000
+    1 <= arr[i] <= 10^5
+    1 <= d <= arr.length
+    """
+    def maxJumps(arr: List[int], d: int) -> int:
+        # a1=arr
+        # a2=sorted(arr,reverse=True)
+        # def t(n,c):
+        #     if n==0 and a1[1]>=a1[0]:
+        #         b.append(c)
+        #         return
+        #     elif n==len(a1)-1 and a1[n]<=a1[n-1]:
+        #         b.append(c)
+        #         return
+        #     elif a1[n-1]>=a1[n] and a1[n+1]>=a1[n]:
+        #         b.append(c)
+        #         return
+
+        #     x=a1[n-d:n]+a1[n+1:n+1+d]
+        #     xx=[i for i in x if i<a1[n]]
+        #     s=a1.index(max(xx))
+        #     t(s,c+1)
+
+        # b=[]
+        # for i in a2:
+        #     t(a1.index(i),1)
+
+        # return max(b)
+
+        def one(arr,d):
+            sn={}
+            def t(p):
+                if p in sn:
+                    return
+                sn[p]=1
+                i=p-1
+                while i>=0 and p-i<=d and arr[p]>arr[i]:
+                    t(i)
+                    sn[p]=max(sn[p],sn[i]+1)
+                    i-=1
+                i=p+1
+                while i<len(arr) and i-p<=d and arr[p]>arr[i]:
+                    t(i)
+                    sn[p]=max(sn[p],sn[i]+1)
+                    i+=1
+            for i in range(len(arr)):
+                t(i)
+            return max(sn.values())
+        def two(arr,d):
+            n=len(arr)
+            dp=[-1]*n
+            def t(i):
+                if dp[i]!=-1:
+                    return dp[i]
+                res=1
+                for k in range(1,d+1):
+                    j=i-k
+                    if j<0:
+                        break
+                    if arr[j]>=arr[i]:
+                        break
+                    res=max(res,1+t(j))
+                for k in range(1,d+1):
+                    j=i+k
+                    if j>=n:
+                        break
+                    if arr[j]>=arr[i]:
+                        break
+                    res=max(res,t(j)+1)
+                dp[i]=res
+                return res
+            ans=0
+            for i in range(n):
+                ans=max(ans,t(i))
+            return ans
+        return two(arr,d)
 if __name__=='__main__':
     zuida84()
