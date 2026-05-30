@@ -5368,7 +5368,7 @@ def tiaoba111():
                 p[i]=p[i-1]+(1 if dp[i] else 0)
             return dp[-1]
         return two()
-def huihuan112():   #快慢针：找环
+def huihuan112__():   #快慢针：找环
     """
     给定一个包含 n + 1 个整数的数组 nums ，其数字都在 [1, n] 范围内（包括 1 和 n），可知至少存在一个重复的整数。
     假设 nums 只有 一个重复的整数 ，返回 这个重复的数 。
@@ -5402,5 +5402,304 @@ def huihuan112():   #快慢针：找环
             s=nums[s]
             f=nums[f]
         return s
+def houzhui113__(): #字典树
+    """
+    给你两个字符串数组 wordsContainer 和 wordsQuery 。
+    对于每个 wordsQuery[i] ，你需要从 wordsContainer 中找到一个与 wordsQuery[i] 有 最长公共后缀 的字符串。
+    如果 wordsContainer 中有两个或者更多字符串有最长公共后缀，那么答案为长度 最短 的。
+    如果有超过两个字符串有 相同 最短长度，那么答案为它们在 wordsContainer 中出现 更早 的一个。
+    请你返回一个整数数组 ans ，其中 ans[i]是 wordsContainer中与 wordsQuery[i] 有 最长公共后缀 字符串的下标。
+
+    示例 1：
+    输入：wordsContainer = ["abcd","bcd","xbcd"], wordsQuery = ["cd","bcd","xyz"]
+    输出：[1,1,1]
+    解释：
+    我们分别来看每一个 wordsQuery[i] ：
+    对于 wordsQuery[0] = "cd" ，wordsContainer 中有最长公共后缀 "cd" 的字符串下标分别为 0 ，1 和 2 。
+    这些字符串中，答案是下标为 1 的字符串，因为它的长度为 3 ，是最短的字符串。
+    对于 wordsQuery[1] = "bcd" ，wordsContainer 中有最长公共后缀 "bcd" 的字符串下标分别为 0 ，1 和 2 。
+    这些字符串中，答案是下标为 1 的字符串，因为它的长度为 3 ，是最短的字符串。
+    对于 wordsQuery[2] = "xyz" ，wordsContainer 中没有字符串跟它有公共后缀，所以最长公共后缀为 "" ，
+    下标为 0 ，1 和 2 的字符串都得到这一公共后缀。这些字符串中， 答案是下标为 1 的字符串，因为它的长度为 3 ，是最短的字符串。
+
+    示例 2：
+    输入：wordsContainer = ["abcdefgh","poiuygh","ghghgh"], wordsQuery = ["gh","acbfgh","acbfegh"]
+    输出：[2,0,2]
+    解释：
+    我们分别来看每一个 wordsQuery[i] ：
+    对于 wordsQuery[0] = "gh" ，wordsContainer 中有最长公共后缀 "gh" 的字符串下标分别为 0 ，1 和 2 。
+    这些字符串中，答案是下标为 2 的字符串，因为它的长度为 6 ，是最短的字符串。
+    对于 wordsQuery[1] = "acbfgh" ，只有下标为 0 的字符串有最长公共后缀 "fgh" 。
+    所以尽管下标为 2 的字符串是最短的字符串，但答案是 0 。
+    对于 wordsQuery[2] = "acbfegh" ，wordsContainer 中有最长公共后缀 "gh" 的字符串下标分别为 0 ，1 和 2 。
+    这些字符串中，答案是下标为 2 的字符串，因为它的长度为 6 ，是最短的字符串。
+    """
+
+    class TrieNode:
+        def __init__(self):
+            self.children = {}
+            self.min_len = float('inf')
+            self.idx = float('inf')
+
+    class Trie:
+        def __init__(self):
+            self.root = TrieNode()
+
+        def insert(self, s, idx):
+            node = self.root
+            if len(s) < node.min_len:
+                node.min_len = len(s)
+                node.idx = idx
+            for ch in s:
+                c = ch
+                if c not in node.children:
+                    node.children[c] = TrieNode()
+                node = node.children[c]
+                if len(s) < node.min_len:
+                    node.min_len = len(s)
+                    node.idx = idx
+
+        def query(self, s):
+            node = self.root
+            for ch in s:
+                if ch in node.children:
+                    node = node.children[ch]
+                else:
+                    break
+            return node.idx
+
+    class Solution:
+        def stringIndices(self, wordsContainer: List[str], wordsQuery: List[str]) -> List[int]:
+            # def f(s):
+            #     result=[]
+            #     for i in range(len(s) - 1, -1, -1):
+            #         result.append(s[i:])
+            #     return result
+            # c={}
+            # for i in wordsContainer:
+            #     c[i]=f(i)
+            # z=[]
+            # for i in wordsQuery:
+            #     x=f(i)
+            #     b=[]
+            #     for l in c.values():
+            #         for j,k in enumerate(x):
+            #             if l[j]==k:
+            #                 continue
+            #             else:
+            #                 b.append(j)
+            #                 break
+            #     f1=[ii for ii,ij in enumerate(b) if ij==max(b)]
+            #     s=[]
+            #     for ik in f1:
+            #         s.append(wordsContainer[ik])
+            #     min_len = min(len(il) for il in s)
+            #     ss=[il for il in s if len(il) == min_len]
+            #     z.append(wordsContainer.index(ss[0]))
+
+            trie = Trie()
+            for i, j in enumerate(wordsContainer):
+                reversed_word = j[::-1]
+                trie.insert(reversed_word, i)
+            res = []
+            for k in wordsQuery:
+                reversed_query = k[::-1]
+                res.append(trie.query(reversed_query))
+            return res
+def xianduan114__():        #线段树
+    """
+    有一条无限长的数轴，原点在 0 处，沿着 x 轴 正 方向无限延伸。
+    给你一个二维数组 queries ，它包含两种操作：
+    操作类型 1 ：queries[i] = [1, x] 。在距离原点 x 处建一个障碍物。
+    数据保证当操作执行的时候，位置 x 处 没有 任何障碍物。
+    操作类型 2 ：queries[i] = [2, x, sz] 。判断在数轴范围 [0, x] 内是否可以放置一个长度为 sz 的物块，
+    这个物块需要 完全 放置在范围 [0, x] 内。如果物块与任何障碍物有重合，那么这个物块 不能 被放置，但物块可以与障碍物刚好接触。
+    注意，你只是进行查询，并 不是 真的放置这个物块。每个查询都是相互独立的。
+    请你返回一个 boolean 数组results ，如果第 i 个操作类型 2 的操作你可以放置物块，那么 results[i] 为 true ，否则为 false 。
+
+    示例 1：
+    输入：queries = [[1,2],[2,3,3],[2,3,1],[2,2,2]]
+    输出：[false,true,true]
+    解释：
+    查询 0 ，在 x = 2 处放置一个障碍物。在 x = 3 之前任何大小不超过 2 的物块都可以被放置。
+
+    示例 2：
+    输入：queries = [[1,7],[2,7,6],[1,2],[2,7,5],[2,7,6]]
+    输出：[true,true,false]
+    解释：
+    查询 0 在 x = 7 处放置一个障碍物。在 x = 7 之前任何大小不超过 7 的物块都可以被放置。
+    查询 2 在 x = 2 处放置一个障碍物。现在，在 x = 7 之前任何大小不超过 5 的物块可以被放置，x = 2 之前任何大小不超过 2 的物块可以被放置。
+
+    提示：
+    1 <= queries.length <= 15 * 104
+    2 <= queries[i].length <= 3
+    1 <= queries[i][0] <= 2
+    1 <= x, sz <= min(5 * 104, 3 * queries.length)
+    输入保证操作 1 中，x 处不会有障碍物。
+    输入保证至少有一个操作类型 2 。
+    """
+    class SegTree:
+        def __init__(self, n):
+            self.n = n
+            self.L = [-1] * (4 * n)
+            self.R = [-1] * (4 * n)
+            self.gap = [0] * (4 * n)
+            self._build(1, 0, n - 1)
+
+        def _build(self, node, l, r):
+            if l == r:
+                if l == 0:
+                    self.L[node] = self.R[node] = 0
+                    self.gap[node] = 0
+                else:
+                    self.L[node] = self.R[node] = -1
+                    self.gap[node] = 0
+                return
+            mid = (l + r) // 2
+            self._build(node * 2, l, mid)
+            self._build(node * 2 + 1, mid + 1, r)
+            self._push_up(node)
+
+        def _push_up(self, node):
+            left, right = node * 2, node * 2 + 1
+            if self.L[left] != -1:
+                self.L[node] = self.L[left]
+            else:
+                self.L[node] = self.L[right]
+            if self.R[right] != -1:
+                self.R[node] = self.R[right]
+            else:
+                self.R[node] = self.R[left]
+            self.gap[node] = max(self.gap[left], self.gap[right])
+            if self.R[left] != -1 and self.L[right] != -1:
+                self.gap[node] = max(self.gap[node], self.L[right] - self.R[left])
+
+        def update(self, idx):
+            self._update(1, 0, self.n - 1, idx)
+
+        def _update(self, node, l, r, idx):
+            if l == r:
+                self.L[node] = self.R[node] = idx
+                self.gap[node] = 0
+                return
+            mid = (l + r) // 2
+            if idx <= mid:
+                self._update(node * 2, l, mid, idx)
+            else:
+                self._update(node * 2 + 1, mid + 1, r, idx)
+            self._push_up(node)
+
+        def query(self, ql, qr):
+            return self._query(1, 0, self.n - 1, ql, qr)
+
+        def _query(self, node, l, r, ql, qr):
+            if ql <= l and r <= qr:
+                return self.L[node], self.R[node], self.gap[node]
+            mid = (l + r) // 2
+            if qr <= mid:
+                return self._query(node * 2, l, mid, ql, qr)
+            if ql > mid:
+                return self._query(node * 2 + 1, mid + 1, r, ql, qr)
+            left_res = self._query(node * 2, l, mid, ql, qr)
+            right_res = self._query(node * 2 + 1, mid + 1, r, ql, qr)
+            L = left_res[0] if left_res[0] != -1 else right_res[0]
+            R = right_res[1] if right_res[1] != -1 else left_res[1]
+            gap = max(left_res[2], right_res[2])
+            if left_res[1] != -1 and right_res[0] != -1:
+                gap = max(gap, right_res[0] - left_res[1])
+            return L, R, gap
+
+
+    class Solution:
+        def __init__(self):
+            self.seg = []
+            self.st = SortedList()
+            self.mx = 50000
+
+        def update(self, idx, val, p, l, r):
+            if l == r:
+                self.seg[p] = val
+                return
+            mid = (l + r) >> 1
+            if idx <= mid:
+                self.update(idx, val, p << 1, l, mid)
+            else:
+                self.update(idx, val, p << 1 | 1, mid + 1, r)
+            self.seg[p] = max(self.seg[p << 1], self.seg[p << 1 | 1])
+
+        def query(self, L, R, p, l, r):
+            if L <= l and r <= R:
+                return self.seg[p]
+            mid = (l + r) >> 1
+            res = 0
+            if L <= mid:
+                res = max(res, self.query(L, R, p << 1, l, mid))
+            if R > mid:
+                res = max(res, self.query(L, R, p << 1 | 1, mid + 1, r))
+            return res
+
+        def getResults(self, queries: List[List[int]]) -> List[bool]:
+            def one(queries):
+                za = [0]
+                z = []
+                for i in queries:
+                    if len(i) == 2:
+                        za.append(i[1])
+                        continue
+                    c = [k for k in za if k <= i[1]]
+                    c.append(i[1])
+                    c.sort()
+                    b = 0
+                    for j in range(1, len(c)):
+                        if c[j] - c[j - 1] >= i[2]:
+                            b = 1
+                            z.append(True)
+                            break
+                    if b == 0:
+                        z.append(False)
+                return z
+            # return one(queries)
+
+            def two_SegTree(queries):
+                max_x = 0
+                for q in queries:
+                    if q[1] > max_x:
+                        max_x = q[1]
+                seg = SegTree(max_x + 1)
+                ans = []
+                for q in queries:
+                    if len(q) == 2:
+                        seg.update(q[1])
+                    else:
+                        x, sz = q[1], q[2]
+                        L, R, gap = seg.query(0, x)
+                        max_gap = max(gap, x - R)
+                        ans.append(max_gap >= sz)
+                return ans
+            # return two_SegTree(queries)
+
+            def three_ori(queries):
+                self.mx = 50000
+                self.seg = [0] * (self.mx << 2)
+                self.st = SortedList([0, self.mx])
+                self.update(self.mx, self.mx, 1, 0, self.mx)
+                ans = []
+                for q in queries:
+                    if len(q) == 2:
+                        x = q[1]
+                        idx = min(len(self.st) - 1, self.st.bisect_right(x))
+                        r = self.st[idx]
+                        l = self.st[idx - 1] if idx > 0 else self.st[0]
+                        self.update(x, x - l, 1, 0, self.mx)
+                        self.update(r, r - x, 1, 0, self.mx)
+                        self.st.add(x)
+                    else:
+                        x, sz = q[1], q[2]
+                        idx = min(len(self.st) - 1, self.st.bisect_right(x))
+                        pre = self.st[0] if idx == 0 else self.st[idx - 1]
+                        max_space = max(x - pre, self.query(0, pre, 1, 0, self.mx))
+                        ans.append(max_space >= sz)
+                return ans
+            return three_ori(queries)
 if __name__=='__main__':
     zuida84()
