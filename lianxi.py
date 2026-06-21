@@ -5630,6 +5630,97 @@ def choushu121():
                     p[j]+=1
 
         return dp[-1]
+def zhaozo122():
+    """
+    给你一个字符串 s，由小写英文字母和特殊字符：'*'、'#' 和 '%' 组成。
+    同时给你一个整数 k。
+    请根据以下规则从左到右处理 s 中每个字符，构造一个新的字符串 result：
+    如果字符是 小写 英文字母，则将其添加到 result 中。
+    字符 '*' 会 删除 result 中的最后一个字符（如果存在）。
+    字符 '#' 会 复制 当前的 result 并追加到其自身后面。
+    字符 '%' 会 反转 当前的 result。
+    返回最终字符串 result 中第 k 个字符（下标从 0 开始）。如果 k 超出 result 的下标索引范围，则返回 '.'。
+
+    示例 1：
+    输入： s = "a#b%*", k = 1
+    输出： "a"
+    解释：
+    i	s[i]	操作	当前 result
+    0	'a'	添加 'a'	"a"
+    1	'#'	复制 result	"aa"
+    2	'b'	添加 'b'	"aab"
+    3	'%'	反转 result	"baa"
+    4	'*'	删除最后一个字符	"ba"
+    最终的 result 是 "ba"。下标为 k = 1 的字符是 'a'。
+
+    示例 2：
+    输入： s = "cd%#*#", k = 3
+    输出： "d"
+    解释：
+    i	s[i]	操作	当前 result
+    0	'c'	添加 'c'	"c"
+    1	'd'	添加 'd'	"cd"
+    2	'%'	反转 result	"dc"
+    3	'#'	复制 result	"dcdc"
+    4	'*'	删除最后一个字符	"dcd"
+    5	'#'	复制 result	"dcddcd"
+    最终的 result 是 "dcddcd"。下标为 k = 3 的字符是 'd'。
+
+    示例 3：
+    输入： s = "z*#", k = 0
+    输出： "."
+    解释：
+    i	s[i]	操作	当前 result
+    0	'z'	添加 'z'	"z"
+    1	'*'	删除最后一个字符	""
+    2	'#'	复制字符串	""
+    最终的 result 是 ""。由于下标 k = 0 越界，输出为 '.'。
+
+    提示:
+    1 <= s.length <= 105
+    s 只包含小写英文字母和特殊字符 '*'、'#' 和 '%'。
+    0 <= k <= 1015
+    处理 s 后得到的 result 的长度不超过 1015。
+    """
+    def processStr(s, k):
+        # z=''
+        # for i in s:
+        #     if 'a'<=i<='z':
+        #         z=z+i
+        #     elif len(z)!=0 and i=='*':
+        #         z=z[:-1]
+        #     elif i=='#':
+        #         z=z+z
+        #     elif i=='%':
+        #         z=z[::-1]
+        # return z[k] if k<len(z) else '.'
+
+        l = 0
+        for i in s:
+            if 'a' <= i <= 'z':
+                l += 1
+            elif l != 0 and i == '*':
+                l -= 1
+            elif i == '#':
+                l *= 2
+        if k > l - 1:
+            return '.'
+        p = k
+        for i in s[::-1]:
+            if 'a' <= i <= 'z':
+                if p == l - 1:
+                    return i
+                else:
+                    l -= 1
+            elif i == '*' and l != 0:
+                l += 1
+            elif i == '#':
+                if p >= l // 2:
+                    p -= l // 2
+                l = l // 2
+            elif i == '%':
+                p = l - 1 - p
+        return '.'
 def huihuan112__():   #快慢针：找环
     """
     给定一个包含 n + 1 个整数的数组 nums ，其数字都在 [1, n] 范围内（包括 1 和 n），可知至少存在一个重复的整数。
