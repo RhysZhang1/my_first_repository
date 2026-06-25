@@ -3182,7 +3182,7 @@ def yici76():
     输入：nums = [0,1,0,1,0,1,99]
     输出：99
     """
-    def singleNumber(self, nums: List[int]) -> int:
+    def singleNumber(nums):
         # a=set()
         # b=set()
         # x=0
@@ -3226,7 +3226,7 @@ def chafen77():
             self.is_w = False
 
     class Solution:
-        def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        def wordBreak(self, s, wordDict):
             wd = wordDict
             # l=0
             # for i in range(1,len(s)+1):
@@ -3336,7 +3336,7 @@ def bolan78():
     = 17 + 5
     = 22
     """
-    def evalRPN(self, tokens: List[str]) -> int:
+    def evalRPN(tokens):
         z=[]
         while tokens:
             try:
@@ -3371,7 +3371,7 @@ def chengji79():
     输出: 0
     解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。
     """
-    def maxProduct(self, nums: List[int]) -> int:
+    def maxProduct(nums):
         def one(nums):
             l=len(nums)
             if l==1:
@@ -3437,7 +3437,7 @@ def banben80():
     解释：
     version1 有更少的修订号，每个缺失的修订号按 "0" 处理。
     """
-    def compareVersion(self, version1: str, version2: str) -> int:
+    def compareVersion(version1,version2):
         l1=list(version1.split('.'))
         l2=list(version2.split('.'))
         if len(l1)>len(l2):
@@ -3475,7 +3475,7 @@ def chufa81():
     输入：numerator = 4, denominator = 333
     输出："0.(012)"
     """
-    def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+    def fractionToDecimal(numerator, denominator):
         n=numerator;d=denominator
         # getcontext().prec=50
         # gg=math.gcd(n,d)
@@ -3564,7 +3564,7 @@ def erhe82():
     输出：[1,2]
     解释：-1 与 0 之和等于目标数 -1 。因此 index1 = 1, index2 = 2 。返回 [1, 2] 。
     """
-    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+    def twoSum(numbers, target):
         x=0;y=len(numbers)-1
         while x<y:
             if numbers[x]+numbers[y]==target:
@@ -3593,7 +3593,7 @@ def weiling83():
     输入：n = 0
     输出：0
     """
-    def trailingZeroes(self, n: int) -> int:
+    def trailingZeroes(n):
         # def p(n):
         #     a=0
         #     while n%2==0:
@@ -3656,19 +3656,17 @@ def zuida84():
     #     return ''.join(map(str,z))
     # nums=eval(input())
     # print(largestNumber(nums))
-    class Solution:
-        def largestNumber(self, nums: List[int]) -> str:
-            def c(a, b):
-                sa, sb = str(a), str(b)
-                if sa + sb > sb + sa:
-                    return -1
-                elif sa + sb < sb + sa:
-                    return 1
-                return 0
-
-            nums.sort(key=cmp_to_key(c))
-            z = ''.join(map(str, nums))
-            return '0' if z[0] == '0' else z
+    def largestNumber(nums):
+        def c(a, b):
+            sa, sb = str(a), str(b)
+            if sa + sb > sb + sa:
+                return -1
+            elif sa + sb < sb + sa:
+                return 1
+            return 0
+        nums.sort(key=cmp_to_key(c))
+        z = ''.join(map(str, nums))
+        return '0' if z[0] == '0' else z
 def jieshe85():
     """
     你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
@@ -3686,7 +3684,7 @@ def jieshe85():
     解释：偷窃 1 号房屋 (金额 = 2), 偷窃 3 号房屋 (金额 = 9)，接着偷窃 5 号房屋 (金额 = 1)。
      偷窃到的最高金额 = 2 + 9 + 1 = 12 。
     """
-    def rob(nums: List[int]) -> int:
+    def rob(nums):
         def one(nums):
             l = len(nums)
             if l == 0:
@@ -3760,7 +3758,7 @@ def daoyu86():
     ]
     输出：3
     """
-    def numIslands(grid: List[List[str]]) -> int:
+    def numIslands(grid):
         # l=len(grid);n=len(grid[0])
         # i=0;z=0
         # while i<l:
@@ -3872,7 +3870,7 @@ def anweiyu87():
     输入：left = 1, right = 2147483647
     输出：0
     """
-    def rangeBitwiseAnd(left: int, right: int) -> int:
+    def rangeBitwiseAnd(left,right):
         def one(left, right):
             z = left
             for i in range(left + 1, right + 1):
@@ -3911,7 +3909,7 @@ def sushu88():
     输入：n = 1
     输出：0
     """
-    def countPrimes(n: int) -> int:
+    def countPrimes(n):
         def one(n):
             if n==0 or n==1:
                 return 0
@@ -3980,7 +3978,7 @@ def zhuanxiang89():
           ["#",".","*"],
           ["#",".","."]]
     """
-    def rotateTheBox(boxGrid: List[List[str]]) -> List[List[str]]:
+    def rotateTheBox(boxGrid):
         def one(boxGrid):
             for i in range(len(boxGrid)):
                 if "*" in boxGrid[i]:
@@ -4052,7 +4050,7 @@ def kebiao90():
     输出：false
     解释：总共有 2 门课程。学习课程 1 之前，你需要先完成课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。
     """
-    def canFinish(numCourses: int, prerequisites: List[List[int]]) -> bool:
+    def canFinish(numCourses, prerequisites):
         # n=numCourses;p=prerequisites
         # if n<2 or not p:
         #     return True
@@ -4145,7 +4143,7 @@ def tiaoyu91():
     对于 i = 2：跳到 j = 1，因为 nums[j] = 3 大于 nums[2] = 1。
     因此，ans = [3, 3, 3]。
     """
-    def maxValue(nums: List[int]) -> List[int]:
+    def maxValue(nums):
         def one(nums):
             z=[];xz=[]
             while nums:
@@ -4309,7 +4307,7 @@ def tiaoyue92():
     f = fe(1000000)
 
     class Solution:
-        def minJumps(self, nums: List[int]) -> int:
+        def minJumps(self, nums):
             n = len(nums)
             ed = defaultdict(list)
             for i, j in enumerate(nums):
@@ -4354,7 +4352,7 @@ def xuanzhuan93():
     输入：grid = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]], k = 2
     输出：[[3,4,8,12],[2,11,10,16],[1,7,6,15],[5,9,13,14]]
     """
-    def rotateGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
+    def rotateGrid(grid,k):
         def one(grid,k):
             m=len(grid)
             n=len(grid[0])
@@ -4394,7 +4392,7 @@ def jieshe94():
     输入：nums = [1,2,3]
     输出：3
     """
-    def rob(nums: List[int]) -> int:
+    def rob(nums):
         n = len(nums)
         if n == 0:
             return 0
@@ -4446,7 +4444,7 @@ def zuhe95():
     解释: 不存在有效的组合。
     在[1,9]范围内使用4个不同的数字，我们可以得到的最小和是1+2+3+4 = 10，因为10 > 1，没有有效的组合。
     """
-    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+    def combinationSum3(k, n):
         zz = []
 
         def h(s, k, t, p):
@@ -4481,7 +4479,7 @@ def zhengfang96():
     输入：matrix = [["0"]]
     输出：0
     """
-    def maximalSquare(matrix: List[List[str]]) -> int:
+    def maximalSquare(matrix):
         def one(matrix):
             m=0;n=0
             b=0;xh=0
@@ -4574,7 +4572,7 @@ def nengliang97():
         - 完成第 4 个任务，剩余能量为 16 - 4 = 12 。
         - 完成第 6 个任务，剩余能量为 12 - 6 = 6 。
     """
-    def minimumEffort(tasks: List[List[int]]) -> int:
+    def minimumEffort(tasks):
         nu=sorted(tasks,key=lambda x:(x[1]-x[0],x[1]),reverse=True)
         z=0
         c=0
@@ -4616,7 +4614,7 @@ def hubu98():
     输出：0
     解释：nums 已经是互补的。
     """
-    def minMoves(self, nums: List[int], limit: int) -> int:
+    def minMoves(nums, limit):
         # n=len(nums)
         # l=n//2
         # n1=nums[:l]
@@ -4671,7 +4669,7 @@ def jisuan99():
     输入：s = " 3+5 / 2 "
     输出：5
     """
-    def calculate(self, s: str) -> int:
+    def calculate(s):
         s = s.replace(' ', '')
         while ('*' in s) or ('/' in s):
             p=0;q=0
@@ -4745,7 +4743,7 @@ def chazhao100():
     输出：false
     """
 
-    def searchMatrix(matrix: List[List[int]], target: int) -> bool:
+    def searchMatrix(matrix, target):
         # x=len(matrix)
         # y=len(matrix[0])
         # l=0
@@ -4823,7 +4821,7 @@ def youxian101():
     输入表达式中的所有整数值在范围 [0, 99]
     输入表达式中的所有整数都没有前导 '-' 或 '+' 表示符号。
     """
-    def diffWaysToCompute(expression: str) -> List[int]:
+    def diffWaysToCompute(expression):
         m={}
         def dfs(s):
             if s in m:
@@ -4865,7 +4863,7 @@ def xianyi102():
     输入：nums = [0,1]
     输出：[1,0]
     """
-    def singleNumber(nums: List[int]) -> List[int]:
+    def singleNumber(nums):
         x=0
         for i in nums:
             x^=i
@@ -4902,7 +4900,7 @@ def tiaoyue103():
     输出：1
     解释：你可以直接从下标 0 处跳到下标 7 处，也就是数组的最后一个元素处。
     """
-    def minJumps(arr: List[int]) -> int:
+    def minJumps(arr):
         # if len(arr)==1:
         #     return 0
         # v={}
@@ -4965,7 +4963,7 @@ def xiaogong104():
     输出：2
     解释：两个数组中的公共元素是 2 和 3 ，2 是较小值，所以返回 2 。
     """
-    def getCommon(nums1: List[int], nums2: List[int]) -> int:
+    def getCommon(nums1, nums2):
         def one(nums1,nums2):
             p=0;q=0
             while p<len(nums1) and q<len(nums2):
@@ -5000,7 +4998,7 @@ def qiangong105():
     i = 1：只有 3 是公共元素，所以 C[1] = 1 。
     i = 2：1，2 和 3 是两个数组的前缀公共元素，所以 C[2] = 3 。
     """
-    def findThePrefixCommonArray(A: List[int], B: List[int]) -> List[int]:
+    def findThePrefixCommonArray(A, B):
         n=len(A)
         g=set()
         C=[0 for i in range(n)]
@@ -5033,7 +5031,7 @@ def qianzhui06():
     解释：任何数对 (arr1[i], arr2[j]) 之中都不存在公共前缀，因此返回 0 。
     请注意，同一个数组内元素之间的公共前缀不在考虑范围内。d
     """
-    def longestCommonPrefix(arr1: List[int], arr2: List[int]) -> int:
+    def longestCommonPrefix(arr1, arr2):
         def one(arr1, arr2):
             z = 0
             for i in arr1:
@@ -5096,7 +5094,7 @@ def erfen107():
     题目数据保证 nums 在预先未知的某个下标上进行了旋转
     -104 <= target <= 104
     '''
-    def search(nums: List[int], target: int) -> int:
+    def search(nums, target):
         left, right = 0, len(nums) - 1
         while left <= right:
             mid = (left + right) // 2
@@ -5136,7 +5134,7 @@ def lunzhuan108():
     解释：[1,2,3] 为有序的源数组。
     可以轮转 x = 0 个位置（即不轮转）得到 nums 。
     """
-    def check(nums: List[int]) -> bool:
+    def check(nums):
         b=0
         for i in range(len(nums)-1):
             if nums[i+1]<nums[i]:
@@ -5166,7 +5164,7 @@ def hzhishu109():
     输入：citations = [1,3,1]
     输出：1
     """
-    def hIndex(citations: List[int]) -> int:
+    def hIndex(citations):
         citations.sort(reverse=True)
         z=0
         for i in range(len(citations)):
@@ -5190,7 +5188,7 @@ def pinghe110():
     输出：2
     解释：13 = 4 + 9
     """
-    def numSquares(n: int) -> int:
+    def numSquares(n):
         def one(n):
             b=0
             while n>3:
@@ -5244,7 +5242,7 @@ def tiaoyue110():
     1 <= arr[i] <= 10^5
     1 <= d <= arr.length
     """
-    def maxJumps(arr: List[int], d: int) -> int:
+    def maxJumps(arr, d):
         # a1=arr
         # a2=sorted(arr,reverse=True)
         # def t(n,c):
@@ -5334,7 +5332,7 @@ def tiaoba111():
     输入：s = "01101110", minJump = 2, maxJump = 3
     输出：false
     """
-    def canReach(s: str, minJump: int, maxJump: int) -> bool:
+    def canReach(s, minJump, maxJump):
         if s[-1]=='1':
             return False
         def one():
@@ -5422,7 +5420,7 @@ def youwan115():
     waterStartTime.length == waterDuration.length == m
     1 <= landStartTime[i], landDuration[i], waterStartTime[j], waterDuration[j] <= 105
     """
-    def earliestFinishTime(landStartTime: List[int], landDuration: List[int], waterStartTime: List[int], waterDuration: List[int]) -> int:
+    def earliestFinishTime(landStartTime, landDuration, waterStartTime, waterDuration):
         def ca(s1,d1,s2,d2):
             z=math.inf
             for i in range(len(s1)):
@@ -5475,7 +5473,7 @@ def bodong116():
     提示：
     1 <= num1 <= num2 <= 105
     """
-    def totalWaviness(num1: int, num2: int) -> int:
+    def totalWaviness(num1, num2):
         z=0
         for i in range(num1,num2+1):
             x=str(i)
@@ -5516,7 +5514,7 @@ def canshu119():
     secret.length == guess.length
     secret 和 guess 仅由数字组成
     """
-    def getHint(secret: str, guess: str) -> str:
+    def getHint(secret, guess):
         l=len(secret)
         s=[i for i in str(secret)]
         g=[i for i in str(guess)]
@@ -5721,6 +5719,36 @@ def zhaozo122():
             elif i == '%':
                 p = l - 1 - p
         return '.'
+def lingqian125():
+    """
+    给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
+    计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。
+    你可以认为每种硬币的数量是无限的。
+    示例 1：
+    输入：coins = [1, 2, 5], amount = 11
+    输出：3
+    解释：11 = 5 + 5 + 1
+    示例 2：
+    输入：coins = [2], amount = 3
+    输出：-1
+    示例 3：
+    输入：coins = [1], amount = 0
+    输出：0
+
+    提示：
+    1 <= coins.length <= 12
+    1 <= coins[i] <= 2^31 - 1
+    0 <= amount <= 10^4
+    """
+    def coinChange(coins, amount):
+        INF = amount + 1
+        dp = [INF] * (amount + 1)
+        dp[0] = 0
+        for i in range(1, amount + 1):
+            for coin in coins:
+                if i >= coin:
+                    dp[i] = min(dp[i], dp[i - coin] + 1)
+        return dp[amount] if dp[amount] != INF else -1
 def huihuan112__():   #快慢针：找环
     """
     给定一个包含 n + 1 个整数的数组 nums ，其数字都在 [1, n] 范围内（包括 1 和 n），可知至少存在一个重复的整数。
@@ -5743,7 +5771,7 @@ def huihuan112__():   #快慢针：找环
     1 <= nums[i] <= n
     nums 中 只有一个整数 出现 两次或多次 ，其余整数均只出现 一次
     """
-    def findDuplicate(nums: List[int]) -> int:
+    def findDuplicate(nums):
         s=f=nums[0]
         while True:
             s=nums[s]
@@ -5822,7 +5850,7 @@ def houzhui113__(): #字典树
             return node.idx
 
     class Solution:
-        def stringIndices(self, wordsContainer: List[str], wordsQuery: List[str]) -> List[int]:
+        def stringIndices(self, wordsContainer, wordsQuery):
             # def f(s):
             #     result=[]
             #     for i in range(len(s) - 1, -1, -1):
@@ -5991,7 +6019,7 @@ def xianduan114__():        #线段树
                 res = max(res, self.query(L, R, p << 1 | 1, mid + 1, r))
             return res
 
-        def getResults(self, queries: List[List[int]]) -> List[bool]:
+        def getResults(self, queries):
             def one(queries):
                 za = [0]
                 z = []
@@ -6096,7 +6124,7 @@ def fenggu117__():    #数位DP
     提示：
     1 <= num1 <= num2 <= 1015
     """
-    def totalWaviness(self, num1: int, num2: int) -> int:
+    def totalWaviness(self, num1, num2):
         # 计算 [0, n] 的波动值总和
         def f(n: int) -> int:
             if n < 0:
@@ -6236,7 +6264,7 @@ def zuida124__():   #位掩码
     1 <= words[i].length <= 1000
     words[i] 仅包含小写字
     """
-    def maxProduct(self, words: List[str]) -> int:
+    def maxProduct(words):
         a={'a':1,'b':2,'c':3,'d':4,'e':5,'f':6,'g':7,'h':8,
         'i':9,'j':10,'k':11,'l':12,'m':13,'n':14,'o':15,'p':16,
         'q':17,'r':18,'s':19,'t':20,'u':21,'v':22,'w':23,'x':24,'y':25,'z':26}
@@ -6254,5 +6282,3 @@ def zuida124__():   #位掩码
                 else:
                     m=max(m,len(words[i])*len(words[j]))
         return m
-if __name__=='__main__':
-    zuida84()
