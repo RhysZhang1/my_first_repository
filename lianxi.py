@@ -5749,6 +5749,46 @@ def lingqian125():
                 if i >= coin:
                     dp[i] = min(dp[i], dp[i - coin] + 1)
         return dp[amount] if dp[amount] != INF else -1
+def zida126():
+    """
+    给你一个 正整数 数组 nums
+    你需要从数组中选出一个满足下述条件的子集：
+    你可以将选中的元素放置在一个下标从 0 开始的数组中，并使其遵循以下模式：[x, x^2, x^4, ..., x^{k/2}, x^k, x^{k/2}, ..., x^4, x^2, x]
+    （注意，k 可以是任何 非负 的 2 的幂）。例如，[2, 4, 16, 4, 2] 和 [3, 9, 3] 都符合这一模式，而 [2, 4, 8, 4, 2] 则不符合。
+    返回满足这些条件的子集中，元素数量的 最大值 。
+    示例 1：
+    输入：nums = [5,4,1,2,2]
+    输出：3
+    解释：选择子集 {4,2,2} ，将其放在数组 [2,4,2] 中，它遵循该模式，且 22 == 4 。因此答案是 3 。
+    示例 2：
+    输入：nums = [1,3,2,4]
+    输出：1
+    解释：选择子集 {1}，将其放在数组 [1] 中，它遵循该模式。因此答案是 1 。注意我们也可以选择子集 {2} 、{4} 或 {3} ，可能存在多个子集都能得到相同的答案。
+
+    提示：
+    2 <= nums.length <= 10^5
+    1 <= nums[i] <= 10^9
+    """
+    def maximumLength(nums):
+        freq = Counter(nums)
+        z=1 if nums else 0
+        if 1 in freq:
+            c=freq[1]
+            z=max(z,c if c%2==1 else c-1)
+        for i in freq:
+            if i==1:
+                continue
+            l=1
+            w=i
+            nd=2
+            while freq[w]>=nd:
+                t=w*w
+                if t not in freq or freq[t]<1:
+                    break
+                l+=2
+                w=t
+            z=max(z,l)
+        return z
 def huihuan112__():   #快慢针：找环
     """
     给定一个包含 n + 1 个整数的数组 nums ，其数字都在 [1, n] 范围内（包括 1 和 n），可知至少存在一个重复的整数。
