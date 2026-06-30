@@ -1,5 +1,9 @@
-# my_first_repository
-用来记录学习
-zong:笔记
-first:测试
+一些零碎的代码
+
+zong:一些笔记
+
+first:随手乱写
+
 1_fir:manim和ffmpeg小动画
+
+AI：一些AI写的代码
